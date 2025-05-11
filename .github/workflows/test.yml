@@ -25,7 +25,6 @@ jobs:
 
       - name: Install NPM dependencies and build
         run: |
-          npm ci --omit=dev
           npm run build
 
       - name: Copy .env.example to .env

@@ -29,8 +29,8 @@ jobs:
           npm install
           npm run build
 
-      - name: Copy .env.example to .env
-        run: cp .env.example .env
+      - name: Copy .env.dev.example to .env
+        run: cp .env.dev.example .env
 
       - name: Generate Laravel key
         run: php artisan key:generate

@@ -28,9 +28,6 @@ export default function Articulos() {
                 {articles.map((article) => (
                     <ArticleCard key={article.id} article={article} />
                 ))}
-                {articles.map((article) => (
-                    <ArticleCard key={article.id} article={article} />
-                ))}
             </ul>
         </AdminLayout>
     );

@@ -1,37 +1,32 @@
-import { useState } from "react";
-import axios from "axios";
+import { useEditableArticle } from "@/Hooks/useEditableArticle";
 import { Article } from "@/types";
+import Image from "./Image";
 import Title from "./Title";
 import Price from "./Price";
-import Edit from "../Icons/Edit";
-import Delete from "../Icons/Delete";
-import Hide from "../Icons/Hide";
 import Description from "./Description";
-import Image from "./Image";
+import Hide from "../Icons/Hide";
+import Delete from "../Icons/Delete";
+import Edit from "../Icons/Edit";
 import Save from "../Icons/Save";
+import SquareX from "../Icons/SquareX";
 
 export default function ArticleCard({ article }: { article: Article }) {
-    const [isEditing, setIsEditing] = useState(false);
-    const [title, setTitle] = useState(article.title);
-    const [price, setPrice] = useState(article.price);
-    const [body, setBody] = useState(article.body);
-
-    const handleSave = async () => {
-        try {
-            await axios.put(`/api/articles/${article.id}`, {
-                title,
-                price,
-                body,
-            });
-            setIsEditing(false);
-        } catch (err) {
-            console.error("Error al guardar artículo:", err);
-        }
-    };
+    const {
+        title,
+        setTitle,
+        price,
+        setPrice,
+        body,
+        setBody,
+        isEditing,
+        startEditing,
+        cancelEditing,
+        saveChanges,
+    } = useEditableArticle(article);
 
     return (
         <li
-            className={`flex flex-col gap-4  p-4 rounded-md w-full transition-all duration-300 ease-in-out ${
+            className={`flex flex-col gap-4 p-4 rounded-md w-full transition-all duration-300 ease-in-out ${
                 isEditing ? " bg-blue-50 text-blue-700" : "bg-gray-100"
             }`}
         >
@@ -41,12 +36,12 @@ export default function ArticleCard({ article }: { article: Article }) {
                     <Title
                         title={title}
                         active={isEditing}
-                        onChange={isEditing ? setTitle : undefined}
+                        onChange={setTitle}
                     />
                     <Price
                         price={price}
                         active={isEditing}
-                        onChange={isEditing ? setPrice : undefined}
+                        onChange={setPrice}
                     />
                 </div>
             </div>
@@ -55,22 +50,29 @@ export default function ArticleCard({ article }: { article: Article }) {
                 <Description
                     description={body}
                     active={isEditing}
-                    onChange={isEditing ? setBody : undefined}
+                    onChange={setBody}
                 />
             </div>
 
             <div className="flex ml-auto gap-2">
-                <Hide cursor={true} />
+                <Hide cursor={true} hide={isEditing} />
                 {isEditing ? (
-                    <button onClick={handleSave}>
-                        <Save cursor={true} />
-                    </button>
+                    <>
+                        <button onClick={saveChanges}>
+                            <Save cursor={true} />
+                        </button>
+                        <button onClick={cancelEditing}>
+                            <SquareX cursor={true} />
+                        </button>
+                    </>
                 ) : (
-                    <button onClick={() => setIsEditing(true)}>
-                        <Edit cursor={true} />
-                    </button>
+                    <>
+                        <button onClick={startEditing}>
+                            <Edit cursor={true} />
+                        </button>
+                        <Delete cursor={true} />
+                    </>
                 )}
-                <Delete cursor={true} />
             </div>
         </li>
     );

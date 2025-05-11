@@ -1,13 +1,14 @@
 interface HideProps {
     cursor?: boolean;
+    hide?: boolean;
 }
 
-export default function Hide(props: HideProps) {
+export default function Hide({ cursor, hide }: HideProps) {
     return (
         <div
-            className={`flex justify-center items-center bg-gray-200 text-gray-950 p-2 rounded-lg ${
-                props.cursor ? "cursor-pointer" : "cursor-auto"
-            }`}
+            className={`flex justify-center items-center bg-gray-200 text-gray-950 p-2 rounded-lg transition duration-250 ease-in-out ${
+                cursor ? "cursor-pointer" : "cursor-auto"
+            } ${hide ? "opacity-50 pointer-events-none" : ""} `}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

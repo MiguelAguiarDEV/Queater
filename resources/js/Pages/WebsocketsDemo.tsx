@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Head } from "@inertiajs/react";
-import { WebsocketsService } from "../utils/websockets";
+import React, { useEffect, useState, useRef } from 'react';
+import { Head } from '@inertiajs/react';
+import { WebsocketsService } from '../utils/websockets';
 
 interface Order {
     id: number;
@@ -15,7 +15,7 @@ interface Order {
  */
 export default function WebsocketsDemo() {
     const [orders, setOrders] = useState<Order[]>([]);
-    const [status, setStatus] = useState<string>("Desconectado");
+    const [status, setStatus] = useState<string>('Desconectado');
     const [restaurantId, setRestaurantId] = useState<number>(1);
     const wsService = useRef<WebsocketsService | null>(null);
 
@@ -40,12 +40,12 @@ export default function WebsocketsDemo() {
 
     return (
         <div
-            style={{ maxWidth: 600, margin: "2rem auto", fontFamily: "Arial" }}
+            style={{ maxWidth: 600, margin: '2rem auto', fontFamily: 'Arial' }}
         >
             <Head title="Demo Websockets" />
             <h1>Demo Websockets: Pedidos en Tiempo Real</h1>
             <p>
-                Escucha el canal{" "}
+                Escucha el canal{' '}
                 <code>private-restaurant.&#123;restaurantId&#125;</code> para
                 recibir nuevos pedidos.
                 <br />
@@ -64,7 +64,7 @@ export default function WebsocketsDemo() {
             <span
                 style={{
                     marginLeft: 16,
-                    color: status.includes("✔") ? "green" : "red",
+                    color: status.includes('✔') ? 'green' : 'red',
                 }}
             >
                 {status}
@@ -76,7 +76,7 @@ export default function WebsocketsDemo() {
                     <div
                         key={order.id}
                         style={{
-                            border: "1px solid #ccc",
+                            border: '1px solid #ccc',
                             padding: 12,
                             marginBottom: 12,
                         }}

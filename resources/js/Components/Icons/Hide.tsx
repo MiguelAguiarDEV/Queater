@@ -6,9 +6,9 @@ interface HideProps {
 export default function Hide({ cursor, hide }: HideProps) {
     return (
         <div
-            className={`flex justify-center items-center bg-gray-200 text-gray-950 p-2 rounded-lg transition duration-250 ease-in-out ${
-                cursor ? "cursor-pointer" : "cursor-auto"
-            } ${hide ? "opacity-50 pointer-events-none" : ""} `}
+            className={`flex items-center justify-center rounded-lg bg-gray-200 p-2 text-gray-950 transition duration-250 ease-in-out ${
+                cursor ? 'cursor-pointer' : 'cursor-auto'
+            } ${hide ? 'pointer-events-none opacity-50' : ''} `}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,4 @@
-import { IconProps } from "@/types";
+import { IconProps } from '@/types';
 
 export default function CreditCard({ className }: IconProps) {
     return (
@@ -13,7 +13,7 @@ export default function CreditCard({ className }: IconProps) {
             strokeLinecap="round"
             strokeLinejoin="round"
             className={
-                `lucide lucide-qr-code-icon lucide-qr-code` + " " + className
+                `lucide lucide-qr-code-icon lucide-qr-code` + ' ' + className
             }
         >
             <rect width="20" height="14" x="2" y="5" rx="2" />

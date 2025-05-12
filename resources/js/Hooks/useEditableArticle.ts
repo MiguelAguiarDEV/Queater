@@ -1,7 +1,7 @@
-import axios from "axios";
-import { Article } from "@/types";
-import { useEditableBase } from "./useEditableBase";
-import { useState, useEffect, useRef } from "react";
+import axios from 'axios';
+import { Article } from '@/types';
+import { useEditableBase } from './useEditableBase';
+import { useState, useEffect, useRef } from 'react';
 
 export function useEditableArticle(initialArticle: Article) {
     // Usamos useRef para trackear cambios reales en initialArticle
@@ -82,7 +82,7 @@ export function useEditableArticle(initialArticle: Article) {
             // Salimos del modo edición
             setIsEditing(false);
         } catch (error) {
-            console.error("Error al guardar artículo:", error);
+            console.error('Error al guardar artículo:', error);
         }
     };
 
@@ -91,11 +91,11 @@ export function useEditableArticle(initialArticle: Article) {
 
     return {
         title,
-        setTitle: (val: string) => setField("title", val),
+        setTitle: (val: string) => setField('title', val),
         price,
-        setPrice: (val: number) => setField("price", val),
+        setPrice: (val: number) => setField('price', val),
         body,
-        setBody: (val: string) => setField("body", val),
+        setBody: (val: string) => setField('body', val),
         isEditing,
         startEditing,
         cancelEditing,

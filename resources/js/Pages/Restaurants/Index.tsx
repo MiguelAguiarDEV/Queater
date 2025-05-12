@@ -22,18 +22,25 @@ export default function Index() {
             <h1 className="mb-12 text-center text-4xl font-semibold tracking-tight text-gray-800 md:text-5xl">
                 Selecciona un restaurante
             </h1>
-            <ul className="grid w-full max-w-5xl grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:gap-8">
-                {restaurants.map((restaurant) => (
-                    <li
-                        key={restaurant.id}
-                        className="group flex h-48 transform cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-gradient-to-br from-orange-400 to-orange-600 p-4 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:shadow-orange-500/40 hover:brightness-110"
-                    >
-                        <p className="text-lg font-semibold text-white drop-shadow-sm">
-                            {restaurant.name}
-                        </p>
-                    </li>
-                ))}
-            </ul>
+            <div className="flex w-full max-w-5xl justify-center gap-6 lg:gap-8">
+                <ul className="flex gap-6 lg:gap-8">
+                    {restaurants.map((restaurant) => (
+                        <li
+                            key={restaurant.id}
+                            className="group flex h-48 w-48 transform cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-gradient-to-br from-orange-400 to-orange-600 p-4 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:shadow-orange-500/40 hover:brightness-110"
+                        >
+                            <p className="text-lg font-semibold text-white drop-shadow-sm">
+                                {restaurant.name}
+                            </p>
+                        </li>
+                    ))}
+                </ul>
+                <button className="flex h-48 w-48 transform cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-gradient-to-br from-gray-200 to-gray-400 p-4 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:shadow-gray-500/40 hover:brightness-110">
+                    <p className="text-lg font-semibold text-white drop-shadow-sm">
+                        crear
+                    </p>
+                </button>
+            </div>
         </div>
     );
 }

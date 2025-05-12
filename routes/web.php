@@ -38,6 +38,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/articulos', function () {
         return Inertia::render('Dashboard/Articles');
     })->name('articulos.index');
+
+    Route::get('/restaurants', function () {
+        return Inertia::render('Restaurants/Index');
+    })->name('restaurants.index');
 });
 
 Route::middleware('auth')->group(function () {

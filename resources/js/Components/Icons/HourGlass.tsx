@@ -1,4 +1,4 @@
-import { IconProps } from "@/types";
+import { IconProps } from '@/types';
 
 export default function HourGlass({ className }: IconProps) {
     return (
@@ -13,7 +13,7 @@ export default function HourGlass({ className }: IconProps) {
             strokeLinecap="round"
             strokeLinejoin="round"
             className={
-                `lucide lucide-qr-code-icon lucide-qr-code` + " " + className
+                `lucide lucide-qr-code-icon lucide-qr-code` + ' ' + className
             }
         >
             <path d="M5 22h14" />

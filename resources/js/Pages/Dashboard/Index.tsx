@@ -1,6 +1,6 @@
 // resources/js/Pages/Dashboard/Index.tsx
-import AdminLayout from "@/Layouts/AdminLayout";
-import { Head } from "@inertiajs/react";
+import AdminLayout from '@/Layouts/AdminLayout';
+import { Head } from '@inertiajs/react';
 
 export default function Index() {
     return (

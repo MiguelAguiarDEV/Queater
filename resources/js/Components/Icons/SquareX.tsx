@@ -5,8 +5,8 @@ interface HideProps {
 export default function SquareX({ cursor }: HideProps) {
     return (
         <div
-            className={`flex justify-center items-center bg-red-200 text-red-950 w-8 h-8 rounded-lg transition duration-250 ease-in-out ${
-                cursor ? "cursor-pointer" : "cursor-auto"
+            className={`flex h-8 w-8 items-center justify-center rounded-lg bg-red-200 text-red-950 transition duration-250 ease-in-out ${
+                cursor ? 'cursor-pointer' : 'cursor-auto'
             } `}
         >
             <svg

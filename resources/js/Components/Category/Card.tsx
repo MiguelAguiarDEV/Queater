@@ -1,12 +1,12 @@
-import { Category } from "@/types";
-import Edit from "../Icons/Edit";
-import Delete from "../Icons/Delete";
-import Hide from "../Icons/Hide";
-import Save from "../Icons/Save";
-import Title from "../Category/Title";
-import Description from "../Category/Description";
-import { useEditableCategory } from "@/Hooks/useEditableCategory";
-import SquareX from "../Icons/SquareX";
+import { Category } from '@/types';
+import Edit from '../Icons/Edit';
+import Delete from '../Icons/Delete';
+import Hide from '../Icons/Hide';
+import Save from '../Icons/Save';
+import Title from '../Category/Title';
+import Description from '../Category/Description';
+import { useEditableCategory } from '@/Hooks/useEditableCategory';
+import SquareX from '../Icons/SquareX';
 
 export default function CategoryCard({ category }: { category: Category }) {
     const {
@@ -22,15 +22,15 @@ export default function CategoryCard({ category }: { category: Category }) {
 
     return (
         <li
-            className={`flex flex-col gap-4 p-4 rounded-md w-full transition-all duration-300 ease-in-out ${
-                isEditing ? " bg-blue-50 text-blue-700" : "bg-gray-100"
+            className={`flex w-full flex-col gap-4 rounded-md p-4 transition-all duration-300 ease-in-out ${
+                isEditing ? 'bg-blue-50 text-blue-700' : 'bg-gray-100'
             }`}
         >
             <div className="flex gap-4">
                 <div className="flex flex-col gap-2">
                     <Title name={name} active={isEditing} onChange={setName} />
                 </div>
-                <div className="flex ml-auto gap-2">
+                <div className="ml-auto flex gap-2">
                     {isEditing ? (
                         <Hide cursor={true} hide />
                     ) : (
@@ -56,7 +56,7 @@ export default function CategoryCard({ category }: { category: Category }) {
                 </div>
             </div>
 
-            <div className="flex flex-col justify-between h-full gap-4">
+            <div className="flex h-full flex-col justify-between gap-4">
                 <Description
                     description={description}
                     active={isEditing}

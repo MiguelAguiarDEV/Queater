@@ -1,7 +1,7 @@
-import axios from "axios";
-import { Category } from "@/types";
-import { useEditableBase } from "./useEditableBase";
-import { useState, useEffect, useRef } from "react";
+import axios from 'axios';
+import { Category } from '@/types';
+import { useEditableBase } from './useEditableBase';
+import { useState, useEffect, useRef } from 'react';
 
 export function useEditableCategory(initialCategory: Category) {
     const prevCategoryRef = useRef(initialCategory);
@@ -30,7 +30,7 @@ export function useEditableCategory(initialCategory: Category) {
         cancelEditing,
     } = useEditableBase({
         name: category.name,
-        description: category.description ?? "",
+        description: category.description ?? '',
     });
 
     // Solo actualizamos valores si cambian
@@ -42,11 +42,11 @@ export function useEditableCategory(initialCategory: Category) {
         ) {
             setValues({
                 name: category.name,
-                description: category.description ?? "",
+                description: category.description ?? '',
             });
             valuesRef.current = {
                 name: category.name,
-                description: category.description ?? "",
+                description: category.description ?? '',
             };
         }
     }, [category, setValues]);
@@ -67,7 +67,7 @@ export function useEditableCategory(initialCategory: Category) {
             setCategory(updatedCategory);
             setIsEditing(false);
         } catch (error) {
-            console.error("Error al guardar categoría:", error);
+            console.error('Error al guardar categoría:', error);
         }
     };
 
@@ -75,9 +75,9 @@ export function useEditableCategory(initialCategory: Category) {
 
     return {
         name,
-        setName: (val: string) => setField("name", val),
+        setName: (val: string) => setField('name', val),
         description,
-        setDescription: (val: string) => setField("description", val),
+        setDescription: (val: string) => setField('description', val),
         isEditing,
         startEditing,
         cancelEditing,

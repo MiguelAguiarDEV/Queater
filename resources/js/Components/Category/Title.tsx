@@ -19,11 +19,11 @@ export default function Title({ name, active = false, onChange }: TitleProps) {
             value={name}
             onChange={handleChange}
             readOnly={!active}
-            placeholder={active ? "Título" : undefined}
-            className={`font-semibold text-md appearance-none focus:outline-none px-1 py-0.5 w-full rounded-lg transition-all duration-300 ease-in-out ${
+            placeholder={active ? 'Título' : undefined}
+            className={`text-md w-full appearance-none rounded-lg px-1 py-0.5 font-semibold transition-all duration-300 ease-in-out focus:outline-none ${
                 active
-                    ? "bg-blue-200 text-blue-800 cursor-text"
-                    : "bg-transparent text-gray-800 cursor-auto"
+                    ? 'cursor-text bg-blue-200 text-blue-800'
+                    : 'cursor-auto bg-transparent text-gray-800'
             }`}
             aria-label="Título"
         />

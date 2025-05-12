@@ -5,8 +5,8 @@ interface HideProps {
 export default function Delete(props: HideProps) {
     return (
         <div
-            className={`flex justify-center items-center bg-red-200 p-2 rounded-lg text-red-950 ${
-                props.cursor ? "cursor-pointer" : "cursor-auto"
+            className={`flex items-center justify-center rounded-lg bg-red-200 p-2 text-red-950 ${
+                props.cursor ? 'cursor-pointer' : 'cursor-auto'
             }`}
         >
             <svg

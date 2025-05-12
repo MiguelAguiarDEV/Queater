@@ -5,8 +5,8 @@ interface HideProps {
 export default function Save(props: HideProps) {
     return (
         <div
-            className={`flex justify-center items-center bg-blue-200 text-gray-950 p-2 rounded-lg ${
-                props.cursor ? "cursor-pointer" : "cursor-auto"
+            className={`flex items-center justify-center rounded-lg bg-blue-200 p-2 text-gray-950 ${
+                props.cursor ? 'cursor-pointer' : 'cursor-auto'
             }`}
         >
             <svg

@@ -27,6 +27,8 @@ Route::get('/ws-demo', function () {
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('/dashboard/{restaurant}', [DashboardController::class, 'show']);
+
     Route::get('/menus', function () {
         return Inertia::render('Dashboard/Menus');
     })->name('menus.index');

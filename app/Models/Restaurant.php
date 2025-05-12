@@ -14,7 +14,6 @@ class Restaurant extends Model
         'address',
         'phone',
         'email',
-        'user_id',
     ];
 
     // Un restaurante pertenece a un usuario

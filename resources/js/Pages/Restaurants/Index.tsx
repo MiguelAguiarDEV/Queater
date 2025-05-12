@@ -1,3 +1,5 @@
+import House from '@/Components/Icons/House';
+import HousePlus from '@/Components/Icons/HousePlus';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
@@ -27,16 +29,22 @@ export default function Index() {
                     {restaurants.map((restaurant) => (
                         <li
                             key={restaurant.id}
-                            className="group flex h-48 w-48 transform cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-gradient-to-br from-orange-400 to-orange-600 p-4 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:shadow-orange-500/40 hover:brightness-110"
+                            className="group flex h-48 w-48 transform cursor-pointer flex-col items-center justify-center gap-4 overflow-hidden rounded-md bg-gradient-to-br from-orange-400 to-orange-600 p-4 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:shadow-orange-500/40 hover:brightness-110"
                         >
-                            <p className="text-lg font-semibold text-white drop-shadow-sm">
+                            <div className="flex size-16 items-center justify-center rounded-full bg-orange-50">
+                                <House className="size-10 text-orange-600" />
+                            </div>
+                            <p className="h-8 text-lg font-semibold text-white drop-shadow-sm">
                                 {restaurant.name}
                             </p>
                         </li>
                     ))}
                 </ul>
-                <button className="flex h-48 w-48 transform cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-gradient-to-br from-gray-200 to-gray-400 p-4 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:shadow-gray-500/40 hover:brightness-110">
-                    <p className="text-lg font-semibold text-white drop-shadow-sm">
+                <button className="flex h-48 w-48 transform cursor-pointer flex-col items-center justify-center gap-4 overflow-hidden rounded-md bg-gradient-to-br from-gray-200 to-gray-400 p-4 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:shadow-gray-500/40 hover:brightness-110">
+                    <div className="flex size-16 items-center justify-center rounded-full bg-gray-50">
+                        <HousePlus className="size-10 text-gray-600" />
+                    </div>
+                    <p className="h-8 text-lg font-semibold text-white drop-shadow-sm">
                         crear
                     </p>
                 </button>

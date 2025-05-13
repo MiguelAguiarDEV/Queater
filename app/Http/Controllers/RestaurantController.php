@@ -11,8 +11,6 @@ class RestaurantController extends Controller
 {
     public function index(Request $request)
     {
-        // linea backup
-        // return response()->json(Restaurant::all());
         return response()->json($request->user()->restaurants);
     }
 

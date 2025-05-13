@@ -16,13 +16,11 @@ class Restaurant extends Model
         'email',
     ];
 
-    // Un restaurante pertenece a un usuario
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Un restaurante tiene muchos menús
     public function menus()
     {
         return $this->hasMany(Menu::class);

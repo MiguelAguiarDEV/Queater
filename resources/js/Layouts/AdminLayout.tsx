@@ -7,9 +7,15 @@ interface Props {
     children: ReactNode;
 }
 
+interface Restaurant {
+    id: number;
+    name: string;
+}
+
 export default function AdminLayout({ header, children }: Props) {
-    // Puedes usar `user` dentro del header si lo necesitas más adelante
     const user = usePage().props.auth?.user ?? { id: 0, name: '', email: '' };
+
+    const { restaurant } = usePage<{ restaurant: Restaurant }>().props;
 
     return (
         <div className="flex h-screen overflow-hidden">
@@ -19,36 +25,50 @@ export default function AdminLayout({ header, children }: Props) {
                 </div>
 
                 <nav className="flex flex-col space-y-4 px-4 py-4">
-                    <NavLink
-                        href={route('admin.dashboard')}
-                        active={route().current('admin.dashboard')}
-                    >
-                        Inicio
-                    </NavLink>
-                    <NavLink
-                        href={route('admin.menus.index')}
-                        active={route().current('admin.menus.*')}
-                    >
-                        Menús
-                    </NavLink>
-                    <NavLink
-                        href={route('admin.categorias.index')}
-                        active={route().current('admin.categorias.*')}
-                    >
-                        Categorías
-                    </NavLink>
-                    <NavLink
-                        href={route('admin.articulos.index')}
-                        active={route().current('admin.articulos.*')}
-                    >
-                        Artículos
-                    </NavLink>
+                    {restaurant?.id && (
+                        <NavLink
+                            href={route('admin.dashboard', restaurant.id)}
+                            active={route().current('admin.dashboard')}
+                        >
+                            Inicio
+                        </NavLink>
+                    )}
+
+                    {restaurant?.id && (
+                        <NavLink
+                            href={route('admin.articulos.index', restaurant.id)}
+                            active={route().current('admin.articulos.*')}
+                        >
+                            Artículos
+                        </NavLink>
+                    )}
+
+                    {restaurant?.id && (
+                        <NavLink
+                            href={route(
+                                'admin.categorias.index',
+                                restaurant.id
+                            )}
+                            active={route().current('admin.categorias.*')}
+                        >
+                            Categorías
+                        </NavLink>
+                    )}
+
+                    {restaurant?.id && (
+                        <NavLink
+                            href={route('admin.menus.index', restaurant.id)}
+                            active={route().current('admin.menus.*')}
+                        >
+                            Menús
+                        </NavLink>
+                    )}
                 </nav>
 
                 <div className="mt-auto p-4">
                     <Link
                         href={route('logout')}
-                        className="block rounded bg-linear-to-r from-orange-400 to-orange-200 p-2 text-center font-black text-orange-900 transition duration-150 ease-in-out hover:scale-105"
+                        className="block rounded bg-gradient-to-r from-orange-400 to-orange-200 p-2 text-center font-black text-orange-900 transition duration-150 ease-in-out hover:scale-105"
                     >
                         Logout
                     </Link>

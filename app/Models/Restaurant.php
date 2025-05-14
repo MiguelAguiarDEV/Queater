@@ -11,9 +11,10 @@ class Restaurant extends Model
 
     protected $fillable = [
         'name',
-        'address',
-        'phone',
-        'email',
+        // TODO: Uncomment and add necessary fields
+        // 'address',
+        // 'phone',
+        // 'email',
     ];
 
     public function user()

@@ -15,9 +15,10 @@ class StoreRestaurantRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:50',
-            'email' => 'nullable|email|unique:restaurants,email',
+            // TODO: Add necessary fields
+            // 'address' => 'nullable|string|max:255',
+            // 'phone' => 'nullable|string|max:50',
+            // 'email' => 'nullable|email|unique:restaurants,email',
         ];
     }
 }

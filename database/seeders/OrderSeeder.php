@@ -17,8 +17,9 @@ class OrderSeeder extends Seeder
             // Si no hay restaurante, crea uno por defecto
             $restaurant = \App\Models\Restaurant::factory()->create([
                 'name' => 'Restaurante Pedido',
-                'address' => 'Calle Pedido 123',
-                'phone' => '555-1111',
+                // TODO: Add necessary fields
+                // 'address' => 'Calle Pedido 123',
+                // 'phone' => '555-1111',
                 'email' => 'pedido@demo.com',
             ]);
             $restaurantId = $restaurant->id;

@@ -35,10 +35,11 @@ class DatabaseSeeder extends Seeder
         // Crear un restaurante de pruebas asociado a ese usuario
         $restaurant = \App\Models\Restaurant::factory()->create([
             'user_id' => $user->id,
-            'name' => 'Restaurante Demo',
-            'address' => 'Calle Falsa 123',
-            'phone' => '555-1234',
-            'email' => 'restaurante@demo.com',
+            'name' => 'Restaurante Demo', 
+            // TODO: Add necessary fields
+            // 'address' => 'Calle Falsa 123',
+            // 'phone' => '555-1234',
+            // 'email' => 'restaurante@demo.com',
         ]);
     }
 }

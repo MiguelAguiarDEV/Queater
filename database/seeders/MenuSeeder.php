@@ -24,9 +24,10 @@ class MenuSeeder extends Seeder
             // Si no hay restaurante, crea uno por defecto
             $restaurant = \App\Models\Restaurant::factory()->create([
                 'name' => 'Restaurante Seeder',
-                'address' => 'Calle Seeder 123',
-                'phone' => '555-0000',
-                'email' => 'seeder@demo.com',
+                // TODO: Add necessary fields
+                // 'address' => 'Calle Seeder 123',
+                // 'phone' => '555-0000',
+                // 'email' => 'seeder@demo.com',
             ]);
             $restaurantId = $restaurant->id;
         }

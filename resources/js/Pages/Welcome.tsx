@@ -44,12 +44,17 @@ export default function Welcome({
                             </div>
                             <nav className="-mx-3 flex flex-1 justify-end">
                                 {auth?.user ? (
-                                    <Link
-                                        href={route('admin.dashboard')}
-                                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                    >
-                                        Dashboard
-                                    </Link>
+                                    <div>
+                                        <Link
+                                            href="/admin"
+                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        >
+                                            Dashboard
+                                        </Link>
+                                        <Link href={route('logout')}>
+                                            Logout
+                                        </Link>
+                                    </div>
                                 ) : (
                                     <>
                                         <Link

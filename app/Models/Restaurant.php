@@ -11,19 +11,17 @@ class Restaurant extends Model
 
     protected $fillable = [
         'name',
-        'address',
-        'phone',
-        'email',
-        'user_id',
+        // TODO: Uncomment and add necessary fields
+        // 'address',
+        // 'phone',
+        // 'email',
     ];
 
-    // Un restaurante pertenece a un usuario
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Un restaurante tiene muchos menús
     public function menus()
     {
         return $this->hasMany(Menu::class);

@@ -13,9 +13,10 @@ class RestaurantFactory extends Factory
     {
         return [
             'name' => $this->faker->company(),
-            'address' => $this->faker->address(),
-            'phone' => $this->faker->phoneNumber(),
-            'email' => $this->faker->unique()->safeEmail(),
+            // TODO: Add necessary fields
+            // 'address' => $this->faker->address(),
+            // 'phone' => $this->faker->phoneNumber(),
+            // 'email' => $this->faker->unique()->safeEmail(),
             'user_id' => User::factory(),
         ];
     }

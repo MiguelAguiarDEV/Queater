@@ -15,10 +15,10 @@ class UpdateRestaurantRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'address' => 'sometimes|required|string|max:255',
-            'phone' => 'sometimes|required|string|max:50',
-            'email' => 'sometimes|required|email|unique:restaurants,email,' . $this->restaurant,
-            'user_id' => 'sometimes|required|exists:users,id',
+            // 'user_id' => 'sometimes|required|exists:users,id',
+            // 'address' => 'sometimes|required|string|max:255',
+            // 'phone' => 'sometimes|required|string|max:50',
+            // 'email' => 'sometimes|required|email|unique:restaurants,email,' . $this->restaurant,
         ];
     }
 }

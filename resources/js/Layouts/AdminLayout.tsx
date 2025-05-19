@@ -1,66 +1,86 @@
-import { ReactNode } from "react";
-import { Link, usePage } from "@inertiajs/react";
-import NavLink from "@/Components/NavLink";
+import { ReactNode } from 'react';
+import { Link, usePage } from '@inertiajs/react';
+import NavLink from '@/Components/NavLink';
 
 interface Props {
     header?: ReactNode;
     children: ReactNode;
 }
 
+interface Restaurant {
+    id: number;
+    name: string;
+}
+
 export default function AdminLayout({ header, children }: Props) {
-    // Puedes usar `user` dentro del header si lo necesitas más adelante
-    const user = usePage().props.auth?.user ?? { id: 0, name: "", email: "" };
+    const user = usePage().props.auth?.user ?? { id: 0, name: '', email: '' };
+
+    const { restaurant } = usePage<{ restaurant: Restaurant }>().props;
 
     return (
-        <div className="h-screen flex overflow-hidden">
-            <aside className="hidden md:flex flex-col w-60 bg-gray-100 overflow-y-auto shadow-md">
-                <div className="h-16 flex items-center justify-center">
+        <div className="flex h-screen overflow-hidden">
+            <aside className="hidden w-60 flex-col overflow-y-auto bg-gray-100 shadow-md md:flex">
+                <div className="flex h-16 items-center justify-center">
                     seré un logo
                 </div>
 
-                <nav className="flex flex-col px-4 py-4 space-y-4">
-                    <NavLink
-                        href={route("admin.dashboard")}
-                        active={route().current("admin.dashboard")}
-                    >
-                        Inicio
-                    </NavLink>
-                    <NavLink
-                        href={route("admin.menus.index")}
-                        active={route().current("admin.menus.*")}
-                    >
-                        Menús
-                    </NavLink>
-                    <NavLink
-                        href={route("admin.categorias.index")}
-                        active={route().current("admin.categorias.*")}
-                    >
-                        Categorías
-                    </NavLink>
-                    <NavLink
-                        href={route("admin.articulos.index")}
-                        active={route().current("admin.articulos.*")}
-                    >
-                        Artículos
-                    </NavLink>
+                <nav className="flex flex-col space-y-4 px-4 py-4">
+                    {restaurant?.id && (
+                        <NavLink
+                            href={route('admin.dashboard', restaurant.id)}
+                            active={route().current('admin.dashboard')}
+                        >
+                            Inicio
+                        </NavLink>
+                    )}
+
+                    {restaurant?.id && (
+                        <NavLink
+                            href={route('admin.articulos.index', restaurant.id)}
+                            active={route().current('admin.articulos.*')}
+                        >
+                            Artículos
+                        </NavLink>
+                    )}
+
+                    {restaurant?.id && (
+                        <NavLink
+                            href={route(
+                                'admin.categorias.index',
+                                restaurant.id
+                            )}
+                            active={route().current('admin.categorias.*')}
+                        >
+                            Categorías
+                        </NavLink>
+                    )}
+
+                    {restaurant?.id && (
+                        <NavLink
+                            href={route('admin.menus.index', restaurant.id)}
+                            active={route().current('admin.menus.*')}
+                        >
+                            Menús
+                        </NavLink>
+                    )}
                 </nav>
 
-                <div className="p-4 mt-auto">
+                <div className="mt-auto p-4">
                     <Link
-                        href={route("logout")}
-                        className="block bg-linear-to-r from-orange-400 to-orange-200  p-2 rounded text-orange-900 font-black text-center hover:scale-105 transition duration-150 ease-in-out"
+                        href={route('logout')}
+                        className="block rounded bg-gradient-to-r from-orange-400 to-orange-200 p-2 text-center font-black text-orange-900 transition duration-150 ease-in-out hover:scale-105"
                     >
                         Logout
                     </Link>
                 </div>
             </aside>
 
-            <div className="flex-1 flex flex-col">
-                <header className="h-16 flex items-center px-4 ">
+            <div className="flex flex-1 flex-col">
+                <header className="flex h-16 items-center px-4">
                     <nav>soy un navbar</nav>
                 </header>
 
-                <main className="flex-1 overflow-y-scroll scrollbar-hide p-4 min-h-0">
+                <main className="scrollbar-hide min-h-0 flex-1 overflow-y-scroll p-4">
                     {header && <div className="mb-4">{header}</div>}
                     <div className="space-y-6">{children}</div>
                 </main>

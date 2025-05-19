@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { formatEuros } from "@/utils/formatters";
+import React, { useState, useEffect } from 'react';
+import { formatEuros } from '@/utils/formatters';
 
 interface PriceProps {
     price: number;
@@ -19,13 +19,13 @@ export default function Price({ price, active = false, onChange }: PriceProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!active) return;
         const val = e.target.value;
-        if (val === "" || /^\d*(?:[.,]\d{0,2})?$/.test(val)) {
+        if (val === '' || /^\d*(?:[.,]\d{0,2})?$/.test(val)) {
             setInputValue(val);
         }
     };
 
     const handleBlur = () => {
-        const num = parseFloat(inputValue.replace(",", ".")) || 0;
+        const num = parseFloat(inputValue.replace(',', '.')) || 0;
         setInputValue(formatEuros(num)); // formatea con Intl.NumberFormat
         onChange?.(num);
     };
@@ -40,11 +40,11 @@ export default function Price({ price, active = false, onChange }: PriceProps) {
             onChange={handleChange}
             onBlur={handleBlur}
             readOnly={!active}
-            placeholder={active ? "Precio" : undefined}
-            className={`field-sizing-content w-fit font-semibold focus:outline-none px-2 py-1 text-sm rounded-lg transition-all duration-300 ease-in-out ${
+            placeholder={active ? 'Precio' : undefined}
+            className={`field-sizing-content w-fit rounded-lg px-2 py-1 text-sm font-semibold transition-all duration-300 ease-in-out focus:outline-none ${
                 active
-                    ? "cursor-text bg-blue-200 text-blue-800"
-                    : "cursor-auto bg-gray-200"
+                    ? 'cursor-text bg-blue-200 text-blue-800'
+                    : 'cursor-auto bg-gray-200'
             }`}
         />
     );

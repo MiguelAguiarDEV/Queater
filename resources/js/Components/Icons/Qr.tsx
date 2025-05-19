@@ -1,4 +1,4 @@
-import { IconProps } from "@/types";
+import { IconProps } from '@/types';
 
 export default function Qr({ className }: IconProps) {
     return (
@@ -13,7 +13,7 @@ export default function Qr({ className }: IconProps) {
             strokeLinecap="round"
             strokeLinejoin="round"
             className={
-                `lucide lucide-qr-code-icon lucide-qr-code` + " " + className
+                `lucide lucide-qr-code-icon lucide-qr-code` + ' ' + className
             }
         >
             <rect width="5" height="5" x="3" y="3" rx="1" />

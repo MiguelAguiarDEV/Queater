@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Restaurant::all());
+        return response()->json($request->user()->restaurants);
     }
 
     public function show(Restaurant $restaurant)
@@ -21,7 +21,7 @@ class RestaurantController extends Controller
 
     public function store(StoreRestaurantRequest $request)
     {
-        $restaurant = Restaurant::create($request->validated());
+        $restaurant = $request->user()->restaurants()->create($request->validated());
         return response()->json($restaurant, 201);
     }
 

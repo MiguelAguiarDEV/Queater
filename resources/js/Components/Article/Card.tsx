@@ -1,14 +1,14 @@
-import { useEditableArticle } from "@/Hooks/useEditableArticle";
-import { Article } from "@/types";
-import Image from "./Image";
-import Title from "./Title";
-import Price from "./Price";
-import Description from "./Description";
-import Hide from "../Icons/Hide";
-import Delete from "../Icons/Delete";
-import Edit from "../Icons/Edit";
-import Save from "../Icons/Save";
-import SquareX from "../Icons/SquareX";
+import { useEditableArticle } from '@/Hooks/useEditableArticle';
+import { Article } from '@/types';
+import Image from './Image';
+import Title from './Title';
+import Price from './Price';
+import Description from './Description';
+import Hide from '../Icons/Hide';
+import Delete from '../Icons/Delete';
+import Edit from '../Icons/Edit';
+import Save from '../Icons/Save';
+import SquareX from '../Icons/SquareX';
 
 export default function ArticleCard({ article }: { article: Article }) {
     const {
@@ -26,8 +26,8 @@ export default function ArticleCard({ article }: { article: Article }) {
 
     return (
         <li
-            className={`flex flex-col gap-4 p-4 rounded-md w-full transition-all duration-300 ease-in-out ${
-                isEditing ? " bg-blue-50 text-blue-700" : "bg-gray-100"
+            className={`flex w-full flex-col gap-4 rounded-md p-4 transition-all duration-300 ease-in-out ${
+                isEditing ? 'bg-blue-50 text-blue-700' : 'bg-gray-100'
             }`}
         >
             <div className="flex gap-4">
@@ -46,7 +46,7 @@ export default function ArticleCard({ article }: { article: Article }) {
                 </div>
             </div>
 
-            <div className="flex flex-col justify-between h-full gap-4">
+            <div className="flex h-full flex-col justify-between gap-4">
                 <Description
                     description={body}
                     active={isEditing}
@@ -54,7 +54,7 @@ export default function ArticleCard({ article }: { article: Article }) {
                 />
             </div>
 
-            <div className="flex ml-auto gap-2">
+            <div className="ml-auto flex gap-2">
                 <Hide cursor={true} hide={isEditing} />
                 {isEditing ? (
                     <>

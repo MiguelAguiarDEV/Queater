@@ -1,24 +1,24 @@
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
-import { FormEventHandler } from "react";
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import PrimaryButton from '@/Components/PrimaryButton';
+import TextInput from '@/Components/TextInput';
+import GuestLayout from '@/Layouts/GuestLayout';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { FormEventHandler } from 'react';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route("register"), {
-            onFinish: () => reset("password", "password_confirmation"),
+        post(route('register'), {
+            onFinish: () => reset('password', 'password_confirmation'),
         });
     };
 
@@ -28,7 +28,7 @@ export default function Register() {
 
             <form
                 onSubmit={submit}
-                className="w-full h-full flex flex-col gap-10 mx-auto"
+                className="mx-auto mt-10 flex h-full w-full flex-col gap-8"
             >
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
@@ -37,10 +37,10 @@ export default function Register() {
                         id="name"
                         name="name"
                         value={data.name}
-                        className="block w-full h-12 mt-2"
+                        className="mt-2 block h-12 w-full"
                         autoComplete="name"
                         isFocused={true}
-                        onChange={(e) => setData("name", e.target.value)}
+                        onChange={(e) => setData('name', e.target.value)}
                         required
                     />
 
@@ -55,9 +55,9 @@ export default function Register() {
                         type="email"
                         name="email"
                         value={data.email}
-                        className="block w-full h-12 mt-2"
+                        className="block h-12 w-full"
                         autoComplete="username"
-                        onChange={(e) => setData("email", e.target.value)}
+                        onChange={(e) => setData('email', e.target.value)}
                         required
                     />
 
@@ -72,9 +72,9 @@ export default function Register() {
                         type="password"
                         name="password"
                         value={data.password}
-                        className="pl-2 block w-full h-12 mt-2"
+                        className="block h-12 w-full pl-2"
                         autoComplete="new-password"
-                        onChange={(e) => setData("password", e.target.value)}
+                        onChange={(e) => setData('password', e.target.value)}
                         required
                     />
 
@@ -92,10 +92,10 @@ export default function Register() {
                         type="password"
                         name="password_confirmation"
                         value={data.password_confirmation}
-                        className="block w-full h-12 mt-2"
+                        className="block h-12 w-full"
                         autoComplete="new-password"
                         onChange={(e) =>
-                            setData("password_confirmation", e.target.value)
+                            setData('password_confirmation', e.target.value)
                         }
                         required
                     />
@@ -106,7 +106,7 @@ export default function Register() {
                     />
                 </div>
 
-                <div className=" flex items-end justify-between mt-8 gap-4">
+                <div className="mt-4 flex items-end justify-between gap-4">
                     <PrimaryButton
                         className="bg-orange-600"
                         disabled={processing}
@@ -114,8 +114,8 @@ export default function Register() {
                         Register
                     </PrimaryButton>
                     <Link
-                        href={route("login")}
-                        className="rounded-md text-sm md:text-base text-gray-800 underline hover:text-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+                        href={route('login')}
+                        className="rounded-md text-sm text-gray-800 underline hover:text-orange-400 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-none md:text-base"
                     >
                         Already registered?
                     </Link>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 
 export function useEditableBase<T>(initialValues: T) {
     // Sólo mantenemos dos estados: isEditing y values

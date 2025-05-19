@@ -1,11 +1,11 @@
-import Checkbox from "@/Components/Checkbox";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
-import { FormEventHandler } from "react";
+import Checkbox from '@/Components/Checkbox';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import PrimaryButton from '@/Components/PrimaryButton';
+import TextInput from '@/Components/TextInput';
+import GuestLayout from '@/Layouts/GuestLayout';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { FormEventHandler } from 'react';
 
 export default function Login({
     status,
@@ -15,16 +15,16 @@ export default function Login({
     canResetPassword: boolean;
 }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: "",
-        password: "",
+        email: '',
+        password: '',
         remember: false as boolean,
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route("login"), {
-            onFinish: () => reset("password"),
+        post(route('login'), {
+            onFinish: () => reset('password'),
         });
     };
 
@@ -40,7 +40,7 @@ export default function Login({
 
             <form
                 onSubmit={submit}
-                className="w-full h-full flex flex-col gap-10 mx-auto"
+                className="mx-auto flex h-full w-full flex-col gap-10"
             >
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
@@ -50,10 +50,10 @@ export default function Login({
                         type="email"
                         name="email"
                         value={data.email}
-                        className="block w-full h-12 mt-2"
+                        className="mt-2 block h-12 w-full"
                         autoComplete="username"
                         isFocused={true}
-                        onChange={(e) => setData("email", e.target.value)}
+                        onChange={(e) => setData('email', e.target.value)}
                     />
 
                     <InputError message={errors.email} className="mt-2" />
@@ -67,9 +67,9 @@ export default function Login({
                         type="password"
                         name="password"
                         value={data.password}
-                        className="block w-full h-12 mt-2"
+                        className="mt-2 block h-12 w-full"
                         autoComplete="current-password"
-                        onChange={(e) => setData("password", e.target.value)}
+                        onChange={(e) => setData('password', e.target.value)}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -80,7 +80,7 @@ export default function Login({
                         name="remember"
                         checked={data.remember}
                         onChange={(e) =>
-                            setData("remember", e.target.checked || false)
+                            setData('remember', e.target.checked || false)
                         }
                     />
                     <span className="ml-2 text-sm text-gray-600">
@@ -88,7 +88,7 @@ export default function Login({
                     </span>
                 </div>
 
-                <div className="flex items-end justify-between mt-8 gap-4">
+                <div className="mt-8 flex items-end justify-between gap-4">
                     <PrimaryButton
                         className="bg-orange-600"
                         disabled={processing}
@@ -98,8 +98,8 @@ export default function Login({
 
                     {canResetPassword && (
                         <Link
-                            href={route("password.request")}
-                            className="rounded-md text-sm md:text-base text-gray-800 underline hover:text-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+                            href={route('password.request')}
+                            className="rounded-md text-sm text-gray-800 underline hover:text-orange-400 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-none md:text-base"
                         >
                             Forgot your password?
                         </Link>

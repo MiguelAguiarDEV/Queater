@@ -1,6 +1,14 @@
-export default function CoffeeShop() {
+export interface CoffeeShopProps {
+    className?: string;
+}
+
+export default function CoffeeShop({ className }: CoffeeShopProps) {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 645.571 338.059">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 645.571 338.059"
+            className={className}
+        >
             <g id="f">
                 <path
                     d="M441.739,40.858s6.677-10.192,10.192-10.367c3.514-.176,16.342,8.083,20.91,18.978,4.569,10.895,2.109,18.45-4.041,21.789-6.15,3.339-9.313,4.92-12.476,3.514-3.163-1.406-5.096-3.514-5.096-3.514,0,0,2.46,5.974,5.447,6.853,2.987.879,4.569,3.163.527,3.163s-9.489-5.799-8.786-11.597-6.677-28.818-6.677-28.818Z"

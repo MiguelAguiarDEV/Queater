@@ -13,14 +13,18 @@ class RestaurantTest extends TestCase
 
     public function test_can_list_restaurants()
     {
-        Restaurant::factory()->count(3)->create();
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        Restaurant::factory()->count(3)->create(['user_id' => $user->id]);
         $response = $this->getJson('/api/restaurants');
-        $response->assertStatus(200)->assertJsonStructure([['id', 'name', 'address', 'phone', 'email', 'user_id']]);
+        $response->assertStatus(200)->assertJsonStructure([['id', 'name', 'user_id']]);
     }
 
     public function test_can_show_restaurant()
     {
-        $restaurant = Restaurant::factory()->create();
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $restaurant = Restaurant::factory()->create(['user_id' => $user->id]);
         $response = $this->getJson("/api/restaurants/{$restaurant->id}");
         $response->assertStatus(200)->assertJsonFragment(['id' => $restaurant->id]);
     }
@@ -28,21 +32,21 @@ class RestaurantTest extends TestCase
     public function test_can_create_restaurant()
     {
         $user = User::factory()->create();
+        $this->actingAs($user);
         $data = [
             'name' => 'Restaurante Test',
-            'address' => 'Calle Test 123',
-            'phone' => '555-9999',
-            'email' => 'restaurante@test.com',
             'user_id' => $user->id,
         ];
         $response = $this->postJson('/api/restaurants', $data);
         $response->assertStatus(201)->assertJsonFragment(['name' => 'Restaurante Test']);
-        $this->assertDatabaseHas('restaurants', ['email' => 'restaurante@test.com']);
+        $this->assertDatabaseHas('restaurants', ['name' => 'Restaurante Test', 'user_id' => $user->id]);
     }
 
     public function test_can_update_restaurant()
     {
-        $restaurant = Restaurant::factory()->create();
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $restaurant = Restaurant::factory()->create(['user_id' => $user->id]);
         $data = ['name' => 'Restaurante Actualizado'];
         $response = $this->putJson("/api/restaurants/{$restaurant->id}", $data);
         $response->assertStatus(200)->assertJsonFragment(['name' => 'Restaurante Actualizado']);
@@ -51,7 +55,9 @@ class RestaurantTest extends TestCase
 
     public function test_can_delete_restaurant()
     {
-        $restaurant = Restaurant::factory()->create();
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $restaurant = Restaurant::factory()->create(['user_id' => $user->id]);
         $response = $this->deleteJson("/api/restaurants/{$restaurant->id}");
         $response->assertStatus(204);
         $this->assertDatabaseMissing('restaurants', ['id' => $restaurant->id]);

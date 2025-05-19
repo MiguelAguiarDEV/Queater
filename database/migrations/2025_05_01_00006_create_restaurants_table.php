@@ -10,9 +10,10 @@ return new class extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
+            // TODO: Uncomment and add necessary fields
+            // $table->string('address')->nullable();
+            // $table->string('phone')->nullable();
+            // $table->string('email')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

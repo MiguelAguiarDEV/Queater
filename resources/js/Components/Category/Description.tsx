@@ -22,13 +22,13 @@ export default function Description({
             value={description}
             onChange={handleChange}
             readOnly={!active}
-            placeholder={active ? "Descripción" : undefined}
+            placeholder={active ? 'Descripción' : undefined}
             aria-label="Descripción"
             rows={4}
-            className={`appearance-none focus:outline-none text-sm px-2 py-1 w-full rounded-lg resize-none scrollbar-hide transition-all duration-300 ease-in-out ${
+            className={`scrollbar-hide w-full resize-none appearance-none rounded-lg px-2 py-1 text-sm transition-all duration-300 ease-in-out focus:outline-none ${
                 active
-                    ? "bg-blue-200 text-blue-800 cursor-text"
-                    : "bg-gray-200 text-gray-800 cursor-auto"
+                    ? 'cursor-text bg-blue-200 text-blue-800'
+                    : 'cursor-auto bg-gray-200 text-gray-800'
             }`}
         />
     );

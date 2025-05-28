@@ -29,7 +29,7 @@ export class WebsocketsService {
                 import.meta.env.VITE_REVERB_HOST || window.location.hostname,
             wsPort: Number(import.meta.env.VITE_REVERB_PORT) || 8080,
             wssPort: Number(import.meta.env.VITE_REVERB_PORT) || 8080,
-            forceTLS: import.meta.env.VITE_REVERB_SCHEME === "https",
+            forceTLS: import.meta.env.VITE_REVERB_SCHEME || "https",
             disableStats: true,
             enabledTransports: ["ws", "wss"],
             authEndpoint: "/broadcasting/auth",

@@ -1,0 +1,115 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: ["Test Laravel App"]
+    types:
+      - completed
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' }}
+
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          envs: CLOUDFLARE_TUNNEL_TOKEN
+          script: |
+            # Navegar al directorio del proyecto docker
+            cd ~/queater-docker || exit 1
+            
+            # Hacer pull de los últimos cambios en la configuración
+            git pull origin main
+            
+            # Crear archivo .env para docker-compose si no existe
+            if [ ! -f .env ]; then
+              echo "Creating docker-compose .env file..."
+              echo "CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}" > .env
+            fi
+            
+            # Detener contenedores existentes
+            docker-compose down
+            
+            # Reconstruir y levantar contenedores (esto clonará automáticamente el repo de la app)
+            docker-compose up -d --build
+            
+            # Esperar a que los contenedores estén listos
+            sleep 15
+            
+            # Entrar al contenedor de la aplicación para configurar Laravel
+            docker-compose exec -T queater-production sh -c "
+              cd /app
+              
+              # Hacer pull de los últimos cambios de la aplicación
+              git pull origin main
+              
+              # Configurar entorno de producción si no existe
+              if [ ! -f .env ]; then
+                echo 'Creating production .env file...'
+                cp .env.deploy.example .env || echo 'Warning: .env.deploy.example not found'
+              fi
+              
+              # Instalar dependencias de Composer
+              composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+              
+              # Generar clave de aplicación si no existe
+              if ! grep -q 'APP_KEY=base64:' .env; then
+                php artisan key:generate --force
+              fi
+              
+              # Instalar dependencias de Node.js y compilar assets
+              npm install
+              npm install
+              npm run build
+              
+              # Ejecutar migraciones con seeders
+              php artisan migrate --force --seed
+              
+              # Limpiar y optimizar cache
+              php artisan config:cache
+              php artisan route:cache
+              php artisan view:cache
+              php artisan optimize
+            "
+            
+            # Verificar que Reverb esté funcionando
+            echo "Starting Reverb server..."
+            docker-compose exec -d queater-production php artisan reverb:start --host=0.0.0.0 --port=8080
+            
+            # Reiniciar el contenedor para aplicar todas las configuraciones
+            echo "Restarting application container..."
+            docker-compose restart queater-app
+            
+            # Limpiar imágenes no utilizadas
+            docker image prune -f
+            
+            # Verificar que los contenedores estén ejecutándose
+            docker-compose ps
+            
+            echo "✅ Deployment completed successfully!"
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always()
+    
+    steps:
+      - name: Notify deployment result
+        run: |
+          if [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "✅ Deployment successful!"
+          else
+            echo "❌ Deployment failed!"
+            exit 1
+          fi

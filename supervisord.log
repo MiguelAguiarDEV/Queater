@@ -1,0 +1,190 @@
+2025-05-28 16:11:18,527 INFO Set uid to user 1000 succeeded
+2025-05-28 16:11:18,528 INFO supervisord started with pid 1
+2025-05-28 16:11:19,529 INFO spawnerr: unknown error making dispatchers for 'laravel-serve': EACCES
+2025-05-28 16:11:19,530 INFO spawnerr: unknown error making dispatchers for 'reverb': EACCES
+2025-05-28 16:11:20,532 INFO spawnerr: unknown error making dispatchers for 'laravel-serve': EACCES
+2025-05-28 16:11:20,532 INFO spawnerr: unknown error making dispatchers for 'reverb': EACCES
+2025-05-28 16:11:22,535 INFO spawnerr: unknown error making dispatchers for 'laravel-serve': EACCES
+2025-05-28 16:11:22,535 INFO spawnerr: unknown error making dispatchers for 'reverb': EACCES
+2025-05-28 16:11:25,538 INFO spawnerr: unknown error making dispatchers for 'laravel-serve': EACCES
+2025-05-28 16:11:25,538 INFO gave up: laravel-serve entered FATAL state, too many start retries too quickly
+2025-05-28 16:11:25,539 INFO spawnerr: unknown error making dispatchers for 'reverb': EACCES
+2025-05-28 16:11:25,539 INFO gave up: reverb entered FATAL state, too many start retries too quickly
+2025-05-28 16:13:03,640 WARN received SIGTERM indicating exit request
+2025-05-28 16:13:11,922 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 16:13:11,923 INFO supervisord started with pid 1
+2025-05-28 16:13:12,926 INFO spawned: 'laravel-serve' with pid 86
+2025-05-28 16:13:12,929 INFO spawned: 'reverb' with pid 87
+2025-05-28 16:13:13,081 WARN exited: reverb (exit status 1; not expected)
+2025-05-28 16:13:14,581 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:13:14,582 INFO spawned: 'reverb' with pid 93
+2025-05-28 16:13:14,744 WARN exited: reverb (exit status 1; not expected)
+2025-05-28 16:13:16,748 INFO spawned: 'reverb' with pid 96
+2025-05-28 16:13:16,879 WARN exited: reverb (exit status 1; not expected)
+2025-05-28 16:13:19,885 INFO spawned: 'reverb' with pid 99
+2025-05-28 16:13:20,021 WARN exited: reverb (exit status 1; not expected)
+2025-05-28 16:13:21,022 INFO gave up: reverb entered FATAL state, too many start retries too quickly
+2025-05-28 16:19:21,390 WARN received SIGTERM indicating exit request
+2025-05-28 16:19:21,392 INFO waiting for laravel-serve to die
+2025-05-28 16:19:22,397 WARN stopped: laravel-serve (terminated by SIGTERM)
+2025-05-28 16:19:30,699 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 16:19:30,700 INFO supervisord started with pid 1
+2025-05-28 16:19:31,703 INFO spawned: 'laravel-serve' with pid 86
+2025-05-28 16:19:31,706 INFO spawned: 'reverb' with pid 87
+2025-05-28 16:19:33,346 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:19:33,346 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:24:27,038 WARN exited: laravel-serve (exit status 1; not expected)
+2025-05-28 16:24:28,041 INFO spawned: 'laravel-serve' with pid 95
+2025-05-28 16:24:29,749 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:25:30,809 WARN received SIGTERM indicating exit request
+2025-05-28 16:25:30,809 INFO waiting for laravel-serve, reverb to die
+2025-05-28 16:25:30,819 INFO stopped: reverb (exit status 0)
+2025-05-28 16:25:30,829 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 16:25:39,535 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 16:25:39,536 INFO supervisord started with pid 1
+2025-05-28 16:25:40,539 INFO spawned: 'laravel-serve' with pid 90
+2025-05-28 16:25:40,542 INFO spawned: 'reverb' with pid 91
+2025-05-28 16:25:42,190 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:25:42,190 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:42:26,286 WARN exited: laravel-serve (exit status 1; not expected)
+2025-05-28 16:42:27,291 INFO spawned: 'laravel-serve' with pid 332
+2025-05-28 16:42:29,088 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:48:53,853 WARN received SIGTERM indicating exit request
+2025-05-28 16:48:53,854 INFO waiting for laravel-serve, reverb to die
+2025-05-28 16:48:53,869 INFO stopped: reverb (exit status 0)
+2025-05-28 16:48:53,884 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 16:49:27,525 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 16:49:27,526 INFO supervisord started with pid 1
+2025-05-28 16:49:28,529 INFO spawned: 'laravel-serve' with pid 90
+2025-05-28 16:49:28,532 INFO spawned: 'reverb' with pid 91
+2025-05-28 16:49:30,181 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:49:30,181 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:51:42,813 WARN received SIGTERM indicating exit request
+2025-05-28 16:51:42,813 INFO waiting for laravel-serve, reverb to die
+2025-05-28 16:51:42,823 INFO stopped: reverb (exit status 0)
+2025-05-28 16:51:42,838 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 16:52:08,200 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 16:52:08,201 INFO supervisord started with pid 1
+2025-05-28 16:52:09,204 INFO spawned: 'laravel-serve' with pid 91
+2025-05-28 16:52:09,207 INFO spawned: 'reverb' with pid 92
+2025-05-28 16:52:10,881 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:52:10,881 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:57:40,655 WARN received SIGTERM indicating exit request
+2025-05-28 16:57:40,657 INFO waiting for laravel-serve, reverb to die
+2025-05-28 16:57:40,669 INFO stopped: reverb (exit status 0)
+2025-05-28 16:57:40,685 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 16:57:54,960 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 16:57:54,962 INFO supervisord started with pid 1
+2025-05-28 16:57:55,971 INFO spawned: 'laravel-serve' with pid 91
+2025-05-28 16:57:55,976 INFO spawned: 'reverb' with pid 92
+2025-05-28 16:57:55,976 WARN received SIGTERM indicating exit request
+2025-05-28 16:57:55,977 INFO waiting for laravel-serve, reverb to die
+2025-05-28 16:57:57,789 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:57:59,791 INFO waiting for laravel-serve, reverb to die
+2025-05-28 16:58:02,794 INFO waiting for laravel-serve, reverb to die
+2025-05-28 16:58:33,412 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 16:58:33,414 INFO supervisord started with pid 1
+2025-05-28 16:58:34,416 INFO spawned: 'laravel-serve' with pid 90
+2025-05-28 16:58:34,418 INFO spawned: 'reverb' with pid 91
+2025-05-28 16:58:36,150 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 16:58:36,150 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:01:24,318 WARN received SIGTERM indicating exit request
+2025-05-28 17:01:24,318 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:01:24,331 INFO stopped: reverb (exit status 0)
+2025-05-28 17:01:24,348 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:01:49,824 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:01:49,826 INFO supervisord started with pid 1
+2025-05-28 17:01:50,828 INFO spawned: 'laravel-serve' with pid 90
+2025-05-28 17:01:50,832 INFO spawned: 'reverb' with pid 91
+2025-05-28 17:01:52,563 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:01:52,563 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:02:34,595 WARN received SIGTERM indicating exit request
+2025-05-28 17:02:34,597 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:02:34,608 INFO stopped: reverb (exit status 0)
+2025-05-28 17:02:34,622 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:03:20,985 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:03:20,987 INFO supervisord started with pid 1
+2025-05-28 17:03:21,990 INFO spawned: 'laravel-serve' with pid 90
+2025-05-28 17:03:21,992 INFO spawned: 'reverb' with pid 91
+2025-05-28 17:03:23,664 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:03:23,664 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:04:11,714 WARN received SIGTERM indicating exit request
+2025-05-28 17:04:11,714 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:04:11,728 INFO stopped: reverb (exit status 0)
+2025-05-28 17:04:11,747 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:04:44,276 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:04:44,279 INFO supervisord started with pid 1
+2025-05-28 17:04:45,282 INFO spawned: 'laravel-serve' with pid 90
+2025-05-28 17:04:45,285 INFO spawned: 'reverb' with pid 91
+2025-05-28 17:04:46,974 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:04:46,974 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:05:24,000 WARN received SIGTERM indicating exit request
+2025-05-28 17:05:24,000 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:05:24,015 INFO stopped: reverb (exit status 0)
+2025-05-28 17:05:24,028 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:05:57,633 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:05:57,634 INFO supervisord started with pid 1
+2025-05-28 17:05:58,638 INFO spawned: 'laravel-serve' with pid 91
+2025-05-28 17:05:58,641 INFO spawned: 'reverb' with pid 92
+2025-05-28 17:06:00,368 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:06:00,368 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:09:04,010 WARN received SIGTERM indicating exit request
+2025-05-28 17:09:04,011 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:09:04,023 INFO stopped: reverb (exit status 0)
+2025-05-28 17:09:04,040 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:09:30,644 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:09:30,647 INFO supervisord started with pid 1
+2025-05-28 17:09:31,651 INFO spawned: 'laravel-serve' with pid 91
+2025-05-28 17:09:31,654 INFO spawned: 'reverb' with pid 92
+2025-05-28 17:09:33,348 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:09:33,348 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:09:59,376 WARN received SIGTERM indicating exit request
+2025-05-28 17:09:59,376 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:09:59,396 INFO stopped: reverb (exit status 0)
+2025-05-28 17:09:59,404 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:10:28,288 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:10:28,290 INFO supervisord started with pid 1
+2025-05-28 17:10:29,293 INFO spawned: 'laravel-serve' with pid 91
+2025-05-28 17:10:29,296 INFO spawned: 'reverb' with pid 92
+2025-05-28 17:10:31,018 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:10:31,019 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:10:41,031 WARN received SIGTERM indicating exit request
+2025-05-28 17:10:41,032 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:10:41,050 INFO stopped: reverb (exit status 0)
+2025-05-28 17:10:41,065 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:11:05,066 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:11:05,067 INFO supervisord started with pid 1
+2025-05-28 17:11:06,070 INFO spawned: 'laravel-serve' with pid 90
+2025-05-28 17:11:06,073 INFO spawned: 'reverb' with pid 91
+2025-05-28 17:11:07,838 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:11:07,838 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:15:52,623 WARN received SIGTERM indicating exit request
+2025-05-28 17:15:52,625 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:15:52,638 INFO stopped: reverb (exit status 0)
+2025-05-28 17:15:52,651 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:16:19,035 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:16:19,037 INFO supervisord started with pid 1
+2025-05-28 17:16:20,040 INFO spawned: 'laravel-serve' with pid 89
+2025-05-28 17:16:20,044 INFO spawned: 'reverb' with pid 90
+2025-05-28 17:16:21,808 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:16:21,809 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:17:34,898 WARN received SIGTERM indicating exit request
+2025-05-28 17:17:34,898 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:17:34,909 INFO stopped: reverb (exit status 0)
+2025-05-28 17:17:34,929 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:18:04,727 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:18:04,729 INFO supervisord started with pid 1
+2025-05-28 17:18:05,731 INFO spawned: 'laravel-serve' with pid 90
+2025-05-28 17:18:05,735 INFO spawned: 'reverb' with pid 91
+2025-05-28 17:18:07,569 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:18:07,569 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:18:24,612 WARN received SIGTERM indicating exit request
+2025-05-28 17:18:24,613 INFO waiting for laravel-serve, reverb to die
+2025-05-28 17:18:24,641 INFO stopped: reverb (exit status 0)
+2025-05-28 17:18:25,669 INFO stopped: laravel-serve (exit status 0)
+2025-05-28 17:18:55,824 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-28 17:18:55,826 INFO supervisord started with pid 1
+2025-05-28 17:18:56,829 INFO spawned: 'laravel-serve' with pid 90
+2025-05-28 17:18:56,832 INFO spawned: 'reverb' with pid 91
+2025-05-28 17:18:58,516 INFO success: laravel-serve entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 17:18:58,516 INFO success: reverb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

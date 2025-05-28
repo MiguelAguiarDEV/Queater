@@ -120,6 +120,8 @@ jobs:
             docker-compose ps
             
             echo "✅ Deployment completed successfully!"
+            exit 0
+            "
 
   notify:
     runs-on: ubuntu-latest

@@ -51,7 +51,8 @@ jobs:
             # Navegar al directorio del proyecto docker
             cd ~/queater-docker || exit 1
             
-            # Hacer pull de los últimos cambios en la configuración
+            # Hacer pull de los últimos cambios en la configuración del despliegue (docker-compose.yml, etc.)
+            echo "Pulling latest deployment configuration..."
             git pull origin main
             
             # Crear archivo .env para docker-compose si no existe
@@ -60,63 +61,67 @@ jobs:
               echo "CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}" > .env
             fi
             
-            # Detener contenedores existentes
+            # Detener contenedores existentes para asegurar un estado limpio antes del build
+            echo "Stopping existing containers..."
             docker-compose down
             
-            # Reconstruir y levantar contenedores (esto clonará automáticamente el repo de la app)
+            # Reconstruir y levantar contenedores. 
+            # Esto ejecutará los pasos en tu Dockerfile, incluyendo composer install y npm build para la app.
+            echo "Building and starting new containers..."
             docker-compose up -d --build
             
-            # Esperar a que los contenedores estén listos
-            sleep 15
+            # Esperar a que los contenedores estén listos (ajusta el tiempo si es necesario)
+            echo "Waiting for containers to initialize..."
+            sleep 20 
             
-            # Entrar al contenedor de la aplicación para configurar Laravel
+            # Configurar Laravel dentro del contenedor de la aplicación
+            echo "Configuring Laravel application..."
             docker-compose exec -T queater-production sh -c "
-              cd /app
+              set -e # Salir inmediatamente si un comando falla
+              cd /var/www # Cambiado de /app a /var/www para coincidir con WORKDIR del Dockerfile
               
-              # Hacer pull de los últimos cambios de la aplicación
-              git pull origin main
-              
-              # Configurar entorno de producción si no existe
+              echo 'Ensuring production .env file exists...'
               if [ ! -f .env ]; then
-                echo 'Creating production .env file...'
-                cp .env.deploy.example .env || echo 'Warning: .env.deploy.example not found'
+                if [ -f .env.deploy.example ]; then
+                  cp .env.deploy.example .env
+                  echo '.env file created from .env.deploy.example'
+                else
+                  echo 'Warning: .env.deploy.example not found. Cannot create .env automatically.'
+                fi
               fi
               
-              # Instalar dependencias de Composer
-              composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-              
-              # Generar clave de aplicación si no existe
+              # Generar clave de aplicación si no existe en el .env
+              # Asegúrate que APP_KEY esté vacía o no exista para generarla.
               if ! grep -q 'APP_KEY=base64:' .env; then
+                echo 'Generating application key...'
                 php artisan key:generate --force
               fi
               
-              # Instalar dependencias de Node.js y compilar assets
-              npm install
-              npm install
-              npm run build
-              
-              # Ejecutar migraciones con seeders
+              echo 'Running database migrations and seeders...'
               php artisan migrate --force --seed
               
-              # Limpiar y optimizar cache
-              php artisan config:cache
-              php artisan route:cache
-              php artisan view:cache
+              echo 'Optimizing Laravel application...'
               php artisan optimize
+              php artisan view:cache
+              # Considera php artisan event:cache si usas eventos cacheados
+              # Considera php artisan queue:restart si usas colas que necesiten reiniciarse
             "
             
-            # Verificar que Reverb esté funcionando
+            # Iniciar Laravel Reverb en segundo plano
             echo "Starting Reverb server..."
             docker-compose exec -d queater-production php artisan reverb:start --host=0.0.0.0 --port=8080
             
-            # Reiniciar el contenedor para aplicar todas las configuraciones
-            echo "Restarting application container..."
+            # Reiniciar el contenedor de la aplicación para asegurar que todos los servicios (PHP-FPM)
+            # recarguen la configuración y los archivos de caché optimizados.
+            echo "Restarting application container to apply all changes..."
             docker-compose restart queater-app
             
-            # Limpiar imágenes no utilizadas
+            # Limpiar imágenes de Docker no utilizadas para ahorrar espacio
+            echo "Pruning unused Docker images..."
             docker image prune -f
             
             # Verificar que los contenedores estén ejecutándose
+            echo "Current container status:"
             docker-compose ps
             
             echo "✅ Deployment completed successfully!"

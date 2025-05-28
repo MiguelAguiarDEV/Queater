@@ -15,6 +15,26 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' }}
 
     steps:
+      - name: Check required secrets
+        run: |
+          if [ -z "${{ secrets.SERVER_HOST }}" ]; then
+            echo "❌ SERVER_HOST secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SERVER_USER }}" ]; then
+            echo "❌ SERVER_USER secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SERVER_SSH_KEY }}" ]; then
+            echo "❌ SERVER_SSH_KEY secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}" ]; then
+            echo "❌ CLOUDFLARE_TUNNEL_TOKEN secret is not set"
+            exit 1
+          fi
+          echo "✅ All required secrets are configured"
+
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
         env:
@@ -24,6 +44,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
+          timeout: 30s
+          command_timeout: 10m
           envs: CLOUDFLARE_TUNNEL_TOKEN
           script: |
             # Navegar al directorio del proyecto docker

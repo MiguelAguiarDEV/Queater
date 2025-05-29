@@ -15,3 +15,15 @@ declare global {
 declare module '@inertiajs/core' {
     interface PageProps extends InertiaPageProps, AppPageProps {}
 }
+
+// Vite environment variables
+interface ImportMetaEnv {
+    readonly VITE_REVERB_APP_KEY: string;
+    readonly VITE_REVERB_HOST: string;
+    readonly VITE_REVERB_PORT: string;
+    readonly VITE_REVERB_SCHEME: string;
+}
+
+interface ImportMeta {
+    readonly env: ImportMetaEnv;
+}

@@ -9,10 +9,6 @@ on:
 jobs:
     test:
         runs-on: ubuntu-latest
-        env: # Define environment variables for the job, making secrets available
-            REVERB_APP_ID: ${{ secrets.REVERB_APP_ID || 'test_app_id' }}
-            REVERB_APP_KEY: ${{ secrets.REVERB_APP_KEY || 'test_app_key' }}
-            REVERB_APP_SECRET: ${{ secrets.REVERB_APP_SECRET || 'test_app_secret' }}
 
         steps:
             - uses: actions/checkout@v4
@@ -35,17 +31,6 @@ jobs:
 
             - name: Copy .env.dev.example to .env
               run: cp .env.dev.example .env
-
-            - name: Update .env with Reverb test configuration # This step updates the .env file
-              run: |
-                  echo "" >> .env # Add a newline for separation if .env.dev.example doesn't end with one
-                  echo "# Reverb Configuration for Testing (from GitHub Actions)" >> .env
-
-                  echo "REVERB_APP_ID=${REVERB_APP_ID}" >> .env
-                  echo "REVERB_APP_KEY=${REVERB_APP_KEY}" >> .env
-                  echo "REVERB_APP_SECRET=${REVERB_APP_SECRET}" >> .env
-                  echo "Generated .env for testing:"
-                  cat .env
 
             - name: Generate Laravel key
               run: php artisan key:generate

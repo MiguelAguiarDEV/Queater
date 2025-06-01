@@ -39,9 +39,9 @@ WORKDIR /var/www
 # this line can be commented out. It's good for building standalone images.
 COPY . /var/www
 
-# Make entrypoint script executable
+# Make entrypoint script executable and ensure LF line endings
 COPY ./docker/entrypoint.sh /usr/local/bin/docker-php-entrypoint-laravel
-RUN chmod +x /usr/local/bin/docker-php-entrypoint-laravel
+RUN sed -i 's/\\r$//' /usr/local/bin/docker-php-entrypoint-laravel && chmod +x /usr/local/bin/docker-php-entrypoint-laravel
 
 # Install Composer dependencies and set permissions for Laravel
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist \

@@ -40,9 +40,9 @@ jobs:
               env:
                   CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}
                   # Add new Reverb secrets
-                  ENV_REVERB_APP_ID: ${{ secrets.ENV_REVERB_APP_ID }}
-                  ENV_REVERB_APP_KEY: ${{ secrets.ENV_REVERB_APP_KEY }}
-                  ENV_REVERB_APP_SECRET: ${{ secrets.ENV_REVERB_APP_SECRET }}
+                  ENV_REVERB_APP_ID: ${{ secrets.REVERB_APP_ID }}
+                  ENV_REVERB_APP_KEY: ${{ secrets.REVERB_APP_KEY }}
+                  ENV_REVERB_APP_SECRET: ${{ secrets.REVERB_APP_SECRET }}
               with:
                   host: ${{ secrets.SERVER_HOST }}
                   username: ${{ secrets.SERVER_USER }}
@@ -52,12 +52,12 @@ jobs:
                   command_timeout: 10m
                   envs: >- # Use >- for multi-line strings
                       CLOUDFLARE_TUNNEL_TOKEN,
-                      ENV_REVERB_APP_ID,
-                      ENV_REVERB_APP_KEY,
-                      ENV_REVERB_APP_SECRET
+                      REVERB_APP_ID,
+                      REVERB_APP_KEY,
+                      REVERB_APP_SECRET
                   script: |
                       # Navegar al directorio del proyecto docker
-                      cd ~/queater-docker || exit 1
+                      cd ~/Queater || exit 1
 
                       # Hacer pull de los últimos cambios en la configuración del despliegue (docker-compose.yml, etc.)
                       echo "Pulling latest deployment configuration..."
@@ -77,65 +77,62 @@ jobs:
 
                       # Configurar Laravel dentro del contenedor de la aplicación
                       echo "Configuring Laravel application..."
-                      # Assuming 'app' is the correct service name from your docker-compose.yml for the Laravel application
-                      docker-compose exec -T app sh -c '
-                        set -e # Salir inmediatamente si un comando falla
-                        cd /var/www
-                        
-                        echo "Ensuring production .env file exists..."
-                        if [ ! -f .env ]; then
-                          if [ -f .env.deploy.example ]; then
-                            cp .env.deploy.example .env
-                            echo ".env file created from .env.deploy.example"
-                          else
-                            echo "Warning: .env.deploy.example not found. Creating empty .env."
-                            touch .env # Ensure .env file exists
-                          fi
-                        fi
 
-                        # Helper function to update .env variables
-                        update_env_var() {
-                          local key="$1"
-                          local value="$2"
-                          local env_file=".env"
-                          # Escape slashes, ampersands, and backslashes for sed
-                          local escaped_value=$(echo "$value" | sed -e "s/[\\\\\\/&]/\\\\\\\\&/g")
-                          
-                          if grep -q "^${key}=" "$env_file"; then
-                            # Update existing
-                            sed -i "s#^${key}=.*#${key}=${escaped_value}#" "$env_file"
-                            echo "Updated ${key} in .env"
-                          else
-                            # Add new
-                            echo "${key}=${escaped_value}" >> "$env_file"
-                            echo "Added ${key} to .env"
-                          fi
-                        }
+                      # Assuming 'app' is the correct service name from your docker-compose.yml for the Laravel application  
+                      echo "Ensuring production .env file exists..."
+                      if [ ! -f .env ]; then
+                        if [ -f .env.deploy.example ]; then
+                          cp .env.deploy.example .env
+                          echo ".env file created from .env.deploy.example"
+                        else
+                          echo "Warning: .env.deploy.example not found. Creating empty .env."
+                          touch .env # Ensure .env file exists
+                        fi
+                      fi
 
-                        # Update Reverb variables from GitHub Secrets
-                        if [ -n "${ENV_REVERB_APP_ID}" ]; then
-                          update_env_var "REVERB_APP_ID" "${ENV_REVERB_APP_ID}"
-                        fi
-                        if [ -n "${ENV_REVERB_APP_KEY}" ]; then
-                          update_env_var "REVERB_APP_KEY" "${ENV_REVERB_APP_KEY}"
-                        fi
-                        if [ -n "${ENV_REVERB_APP_SECRET}" ]; then
-                          update_env_var "REVERB_APP_SECRET" "${ENV_REVERB_APP_SECRET}"
-                        fi
+                      # Helper function to update .env variables
+                      update_env_var() {
+                        local key="$1"
+                        local value="$2"
+                        local env_file=".env"
+                        # Escape slashes, ampersands, and backslashes for sed
+                        local escaped_value=$(echo "$value" | sed -e "s/[\\\\\\/&]/\\\\\\\\&/g")
                         
-                        # Asegúrate que APP_KEY esté vacía o no exista para generarla, o si no es válida.
-                        if ! grep -q "^APP_KEY=base64:.\\{44\\}=\$" .env; then
-                          echo "APP_KEY is not set or invalid, generating new one..."
-                          php artisan key:generate --force
+                        if grep -q "^${key}=" "$env_file"; then
+                          # Update existing
+                          sed -i "s#^${key}=.*#${key}=${escaped_value}#" "$env_file"
+                          echo "Updated ${key} in .env"
+                        else
+                          # Add new
+                          echo "${key}=${escaped_value}" >> "$env_file"
+                          echo "Added ${key} to .env"
                         fi
-                        
-                        echo "Optimizing Laravel application..."
-                        php artisan optimize:clear # Clear cache before optimizing
-                        php artisan optimize
-                        php artisan view:cache
-                        # Considera php artisan event:cache si usas eventos cacheados
-                        # Considera php artisan queue:restart si usas colas que necesiten reiniciarse
-                      ' # End of docker-compose exec script
+                      }
+
+                      # Update Reverb variables from GitHub Secrets
+                      if [ -n "${REVERB_APP_ID}" ]; then
+                        update_env_var "REVERB_APP_ID" "${REVERB_APP_ID}"
+                      fi
+                      if [ -n "${REVERB_APP_KEY}" ]; then
+                        update_env_var "REVERB_APP_KEY" "${REVERB_APP_KEY}"
+                      fi
+                      if [ -n "${REVERB_APP_SECRET}" ]; then
+                        update_env_var "REVERB_APP_SECRET" "${REVERB_APP_SECRET}"
+                      fi
+
+                      # Asegúrate que APP_KEY esté vacía o no exista para generarla, o si no es válida.
+                      if ! grep -q "^APP_KEY=base64:.\\{44\\}=\$" .env; then
+                        echo "APP_KEY is not set or invalid, generating new one..."
+                        php artisan key:generate --force
+                      fi
+
+                      echo "Optimizing Laravel application..."
+                      php artisan optimize:clear # Clear cache before optimizing
+                      php artisan optimize
+                      php artisan view:cache
+                      # Considera php artisan event:cache si usas eventos cacheados
+                      # Considera php artisan queue:restart si usas colas que necesiten reiniciarse
+                      # End of docker-compose exec script
 
                       # Reiniciar el contenedor de la aplicación para asegurar que todos los servicios
                       # recarguen la configuración y los archivos de caché optimizados.

@@ -1,144 +1,129 @@
 name: Deploy to Production
 
 on:
-  push:
-    branches: [main]
-  workflow_run:
-    workflows: ["Test Laravel App"]
-    types:
-      - completed
-    branches: [main]
+    push:
+        branches: [main]
+    workflow_run:
+        workflows: ['Test Laravel App']
+        types:
+            - completed
+        branches: [main]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' }}
+    deploy:
+        runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' }}
 
-    steps:
-      - name: Check required secrets
-        run: |
-          if [ -z "${{ secrets.SERVER_HOST }}" ]; then
-            echo "❌ SERVER_HOST secret is not set"
-            exit 1
-          fi
-          if [ -z "${{ secrets.SERVER_USER }}" ]; then
-            echo "❌ SERVER_USER secret is not set"
-            exit 1
-          fi
-          if [ -z "${{ secrets.SERVER_SSH_KEY }}" ]; then
-            echo "❌ SERVER_SSH_KEY secret is not set"
-            exit 1
-          fi
-          if [ -z "${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}" ]; then
-            echo "❌ CLOUDFLARE_TUNNEL_TOKEN secret is not set"
-            exit 1
-          fi
-          echo "✅ All required secrets are configured"
+        steps:
+            - name: Check required secrets
+              run: |
+                  if [ -z "${{ secrets.SERVER_HOST }}" ]; then
+                    echo "❌ SERVER_HOST secret is not set"
+                    exit 1
+                  fi
+                  if [ -z "${{ secrets.SERVER_USER }}" ]; then
+                    echo "❌ SERVER_USER secret is not set"
+                    exit 1
+                  fi
+                  if [ -z "${{ secrets.SERVER_SSH_KEY }}" ]; then
+                    echo "❌ SERVER_SSH_KEY secret is not set"
+                    exit 1
+                  fi
+                  if [ -z "${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}" ]; then
+                    echo "❌ CLOUDFLARE_TUNNEL_TOKEN secret is not set"
+                    exit 1
+                  fi
+                  echo "✅ All required secrets are configured"
 
-      - name: Deploy to server
-        uses: appleboy/ssh-action@v1.0.3
-        env:
-          CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
-          timeout: 30s
-          command_timeout: 10m
-          envs: CLOUDFLARE_TUNNEL_TOKEN
-          script: |
-            # Navegar al directorio del proyecto docker
-            cd ~/queater-docker || exit 1
-            
-            # Hacer pull de los últimos cambios en la configuración del despliegue (docker-compose.yml, etc.)
-            echo "Pulling latest deployment configuration..."
-            git pull origin main
-            
-            # Crear archivo .env para docker-compose si no existe
-            if [ ! -f .env ]; then
-              echo "Creating docker-compose .env file..."
-              echo "CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}" > .env
-            fi
-            
-            # Detener contenedores existentes para asegurar un estado limpio antes del build
-            echo "Stopping existing containers..."
-            docker-compose down
-            
-            # Reconstruir y levantar contenedores. 
-            # Esto ejecutará los pasos en tu Dockerfile, incluyendo composer install y npm build para la app.
-            echo "Building and starting new containers..."
-            docker-compose up -d --build
-            
-            # Esperar a que los contenedores estén listos (ajusta el tiempo si es necesario)
-            echo "Waiting for containers to initialize..."
-            sleep 20 
-            
-            # Configurar Laravel dentro del contenedor de la aplicación
-            echo "Configuring Laravel application..."
-            docker-compose exec -T laravel sh -c "
-              set -e # Salir inmediatamente si un comando falla
-              cd /var/www # Cambiado de /app a /var/www para coincidir con WORKDIR del Dockerfile
-              
-              echo 'Ensuring production .env file exists...'
-              if [ ! -f .env ]; then
-                if [ -f .env.deploy.example ]; then
-                  cp .env.deploy.example .env
-                  echo '.env file created from .env.deploy.example'
-                else
-                  echo 'Warning: .env.deploy.example not found. Cannot create .env automatically.'
-                fi
-              fi
-              
-              # Generar clave de aplicación si no existe en el .env
-              # Asegúrate que APP_KEY esté vacía o no exista para generarla.
-              if ! grep -q 'APP_KEY=base64:' .env; then
-                echo 'Generating application key...'
-                php artisan key:generate --force
-              fi
-              
-              echo 'Running database migrations and seeders...'
-              php artisan migrate --force --seed
-              
-              echo 'Optimizing Laravel application...'
-              php artisan optimize
-              php artisan view:cache
-              # Considera php artisan event:cache si usas eventos cacheados
-              # Considera php artisan queue:restart si usas colas que necesiten reiniciarse
-            "
-            
-            # Reverb será iniciado por start.sh dentro del contenedor después del reinicio.
-            # La siguiente línea ha sido eliminada:
-            # docker-compose exec -d laravel php artisan reverb:start --host=0.0.0.0 --port=8080
-            
-            # Reiniciar el contenedor de la aplicación para asegurar que todos los servicios (PHP-FPM, Reverb)
-            # recarguen la configuración y los archivos de caché optimizados, y que start.sh se ejecute.
-            echo "Restarting application container to apply all changes and start services..."
-            docker-compose restart laravel
-            
-            # Limpiar imágenes de Docker no utilizadas para ahorrar espacio
-            echo "Pruning unused Docker images..."
-            docker image prune -f
-            
-            # Verificar que los contenedores estén ejecutándose
-            echo "Current container status:"
-            docker-compose ps
-            
-            echo "✅ Deployment completed successfully!"
-            exit 0
-            "
+            - name: Deploy to server
+              uses: appleboy/ssh-action@v1.0.3
+              env:
+                  CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  port: 22
+                  timeout: 30s
+                  command_timeout: 10m
+                  envs: CLOUDFLARE_TUNNEL_TOKEN
+                  script: |
+                      # Navegar al directorio del proyecto docker
+                      cd ~/queater-docker || exit 1
 
-  notify:
-    runs-on: ubuntu-latest
-    needs: deploy
-    if: always()
-    
-    steps:
-      - name: Notify deployment result
-        run: |
-          if [ "${{ needs.deploy.result }}" == "success" ]; then
-            echo "✅ Deployment successful!"
-          else
-            echo "❌ Deployment failed!"
-            exit 1
-          fi
+                      # Hacer pull de los últimos cambios en la configuración del despliegue (docker-compose.yml, etc.)
+                      echo "Pulling latest deployment configuration..."
+                      git pull origin main
+
+                      # Detener contenedores existentes para asegurar un estado limpio antes del build
+                      echo "Stopping existing containers..."
+                      docker-compose down
+
+                      # Reconstruir y levantar contenedores. 
+                      # Esto ejecutará los pasos en tu Dockerfile, incluyendo composer install y npm build para la app.
+                      echo "Building and starting new containers..."
+                      docker-compose up -d --build
+
+                      # Esperar a que los contenedores estén listos (ajusta el tiempo si es necesario)
+                      echo "Waiting for containers to initialize..."
+                      sleep 20 
+
+                      echo 'Ensuring production .env file exists...'
+                      if [ ! -f .env ]; then
+                        if [ -f .env.deploy.example ]; then
+                          cp .env.deploy.example .env
+                          echo '.env file created from .env.deploy.example'
+                        else
+                          echo 'Warning: .env.deploy.example not found. Cannot create .env automatically.'
+                        fi
+                      fi
+                        
+                      # Generar clave de aplicación si no existe en el .env
+                      # Asegúrate que APP_KEY esté vacía o no exista para generarla.
+                      if ! grep -q 'APP_KEY=base64:' .env; then
+                        echo 'Generating application key...'
+                        php artisan key:generate --force
+                      fi
+
+                      echo 'Optimizing Laravel application...'
+                      php artisan optimize
+                      php artisan view:cache
+                      # Considera php artisan event:cache si usas eventos cacheados
+                      # Considera php artisan queue:restart si usas colas que necesiten reiniciarse
+                      "
+
+                      # Reverb será iniciado por start.sh dentro del contenedor después del reinicio.
+                      # La siguiente línea ha sido eliminada:
+                      # docker-compose exec -d laravel php artisan reverb:start --host=0.0.0.0 --port=8080
+
+                      # Reiniciar el contenedor de la aplicación para asegurar que todos los servicios (PHP-FPM, Reverb)
+                      # recarguen la configuración y los archivos de caché optimizados, y que start.sh se ejecute.
+                      echo "Restarting application container to apply all changes and start services..."
+                      docker-compose restart laravel
+
+                      # Limpiar imágenes de Docker no utilizadas para ahorrar espacio
+                      echo "Pruning unused Docker images..."
+                      docker image prune -f
+
+                      # Verificar que los contenedores estén ejecutándose
+                      echo "Current container status:"
+                      docker-compose ps
+
+                      echo "✅ Deployment completed successfully!"
+                      exit 0
+                      "
+
+    notify:
+        runs-on: ubuntu-latest
+        needs: deploy
+        if: always()
+
+        steps:
+            - name: Notify deployment result
+              run: |
+                  if [ "${{ needs.deploy.result }}" == "success" ]; then
+                    echo "✅ Deployment successful!"
+                  else
+                    echo "❌ Deployment failed!"
+                    exit 1
+                  fi

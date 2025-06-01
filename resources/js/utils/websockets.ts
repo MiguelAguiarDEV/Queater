@@ -1,5 +1,6 @@
 // resources/js/utils/websockets.ts
-import Echo from "laravel-echo";
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js'; // Import Pusher
 
 /**
  * Servicio utilitario para conectar y escuchar eventos de websockets por restaurante.
@@ -22,36 +23,38 @@ export class WebsocketsService {
     ) {
         if (this.echo) {
             this.echo.leave(`private-restaurant.${restaurantId}`);
-        }        this.echo = new Echo({
-            broadcaster: "reverb",
+        }
+        (window as any).Pusher = Pusher; // Make Pusher globally available before initializing Echo
+        this.echo = new Echo({
+            broadcaster: 'reverb',
             key: import.meta.env.VITE_REVERB_APP_KEY,
             wsHost:
                 import.meta.env.VITE_REVERB_HOST || window.location.hostname,
             wsPort: Number(import.meta.env.VITE_REVERB_PORT) || 8080,
             wssPort: Number(import.meta.env.VITE_REVERB_PORT) || 443,
-            forceTLS: (import.meta.env.VITE_REVERB_SCHEME || "ws") === "wss",
+            forceTLS: (import.meta.env.VITE_REVERB_SCHEME || 'ws') === 'wss',
             disableStats: true,
-            enabledTransports: ["ws", "wss"],
-            authEndpoint: "/broadcasting/auth",
+            enabledTransports: ['ws', 'wss'],
+            authEndpoint: '/broadcasting/auth',
             auth: {
                 headers: {
-                    "X-CSRF-TOKEN":
+                    'X-CSRF-TOKEN':
                         (
                             document.querySelector(
                                 'meta[name="csrf-token"]'
                             ) as HTMLMetaElement
-                        )?.content || "",
+                        )?.content || '',
                 },
             },
         });
-        if (onStatus) onStatus("Conectando...");
+        if (onStatus) onStatus('Conectando...');
         this.channel = this.echo
             .private(`restaurant.${restaurantId}`)
-            .listen("OrderCreated", (e: any) => {
+            .listen('OrderCreated', (e: any) => {
                 onOrderCreated(e.order);
             })
-            .subscribed(() => onStatus && onStatus("Conectado ✔"))
-            .error(() => onStatus && onStatus("Error de conexión"));
+            .subscribed(() => onStatus && onStatus('Conectado ✔'))
+            .error(() => onStatus && onStatus('Error de conexión'));
     }
 
     /**

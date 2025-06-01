@@ -21,8 +21,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-
 Route::get('/ws-demo', function () {
     return Inertia::render('WebsocketsDemo');
 });

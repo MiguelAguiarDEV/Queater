@@ -51,7 +51,10 @@ export default function Welcome({
                                         >
                                             Dashboard
                                         </Link>
-                                        <Link href={route('logout')}>
+                                        <Link
+                                            href={route('logout')}
+                                            method="post"
+                                        >
                                             Logout
                                         </Link>
                                     </div>

@@ -47,6 +47,10 @@ php artisan view:cache
 # echo "Optimizing application..."
 # php artisan optimize
 
+echo "Setting permissions for storage, bootstrap/cache, and database..."
+chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/database
+chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database /var/www/queater
+
 echo "Starting Reverb WebSocket server..."
 php artisan reverb:start &
 

@@ -47,5 +47,8 @@ php artisan view:cache
 # echo "Optimizing application..."
 # php artisan optimize
 
+echo "Starting Reverb WebSocket server..."
+php artisan reverb:start &
+
 echo "Laravel entrypoint script finished. Starting PHP-FPM..."
 exec "$@"

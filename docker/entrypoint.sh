@@ -43,17 +43,17 @@ echo "Caching views..."
 php artisan view:cache
 
 
-# You can also use 'php artisan optimize' if you prefer, which combines several caching steps.
-# echo "Optimizing application..."
-# php artisan optimize
+echo "Ensuring storage subdirectories exist..."
+mkdir -p /var/www/storage/app/public
+mkdir -p /var/www/storage/framework/cache/data
+mkdir -p /var/www/storage/framework/sessions
+mkdir -p /var/www/storage/framework/testing/disks
+mkdir -p /var/www/storage/framework/views
+mkdir -p /var/www/storage/logs
 
-echo "Setting permissions for storage, bootstrap/cache, database, and database file..."
-chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/database /var/www/queater
-chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database
-# Ensure the specific database file also has appropriate permissions if it exists
-if [ -f /var/www/queater ]; then
-    chmod 664 /var/www/queater
-fi
+echo "Setting broad permissions for /var/www for testing purposes..."
+chown -R www-data:www-data /var/www
+chmod -R 777 /var/www
 
 echo "Starting Reverb WebSocket server..."
 php artisan reverb:start &

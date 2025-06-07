@@ -43,7 +43,7 @@ export default function Index() {
                         <li
                             key={restaurant.id}
                             onClick={() =>
-                                (window.location.href = `/admin/dashboard/${restaurant.id}`)
+                                (window.location.href = `/dashboard/${restaurant.name}`)
                             }
                             className="group flex h-48 w-48 transform cursor-pointer flex-col items-center justify-center gap-4 overflow-hidden rounded-md bg-gradient-to-br from-orange-400 to-orange-600 p-4 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:shadow-orange-500/40 hover:brightness-110"
                         >

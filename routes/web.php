@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use App\Models\Category;
 use App\Models\Menu;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-
+//HOME PAGE ROUTE
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -21,49 +22,35 @@ Route::get('/', function () {
     ]);
 });
 
+
+//TEST WS
 Route::get('/ws-demo', function () {
     return Inertia::render('WebsocketsDemo');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('restaurants')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Restaurants/Index', [
-            'restaurants' => Auth::user()->retaurants,
-        ]);
-    })->name('restaurants');
+//DASHBOARD ROUTES
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    // GET dashboard - Elección de restaurantes
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // GET dashboard/{restaurant} - Dashboard del restaurante
+    Route::get('/dashboard/{restaurant}', [DashboardController::class, 'show'])
+        ->name('dashboard.restaurant');
+
+    // GET dashboard/{restaurant}/articles - Sección de artículos
+    Route::get('/dashboard/{restaurant}/articles', [DashboardController::class, 'articles'])
+        ->name('dashboard.articles');
+
+    // GET dashboard/{restaurant}/categories - Sección de categorías
+    Route::get('/dashboard/{restaurant}/categories', [DashboardController::class, 'categories'])
+        ->name('dashboard.categories');
+
+    // GET dashboard/{restaurant}/menus - Sección de menús
+    Route::get('/dashboard/{restaurant}/menus', [DashboardController::class, 'menus'])
+        ->name('dashboard.menus');
+    
 });
-
-Route::prefix('/admin/dashboard/{restaurant}')
-    ->middleware(['auth', 'verified'])
-    ->name('admin.')
-    ->group(function () {
-        Route::get('/', function(Restaurant $restaurant){
-            return Inertia::render('Dashboard/Index', [
-                'restaurant' => $restaurant
-            ]);
-        })->name('dashboard');
-
-        Route::get('/articles', function(Restaurant $restaurant) {
-            return Inertia::render('Dashboard/Articles', [
-                'restaurant' => $restaurant,
-                'articles' => Article::all(),
-            ]);
-        })->name('articulos.index');
-
-        Route::get('/categories', function(Restaurant $restaurant) {
-            return Inertia::render('Dashboard/Categories', [
-                'restaurant' => $restaurant,
-                'categories' => Category::all(),
-            ]);
-        })->name('categorias.index');
-
-        Route::get('/menus', function(Restaurant $restaurant) {
-            return Inertia::render('Dashboard/Menus', [
-                'restaurant' => $restaurant,
-                'menus' => Menu::all(),
-            ]);
-        })->name('menus.index');
-    });
 
 
 // Perfil de usuario

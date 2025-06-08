@@ -3,7 +3,7 @@ import { Article } from '@/types';
 import { useEditableBase } from './useEditableBase';
 import { useState, useEffect, useRef } from 'react';
 
-export function useEditableArticle(initialArticle: Article) {
+export function useEditableArticle(initialArticle: Article, onUpdate?: () => void | Promise<void>) {
     // Usamos useRef para trackear cambios reales en initialArticle
     const prevArticleRef = useRef(initialArticle);
 
@@ -59,9 +59,7 @@ export function useEditableArticle(initialArticle: Article) {
                 body: article.body,
             };
         }
-    }, [article, setValues]);
-
-    const saveChanges = async () => {
+    }, [article, setValues]);    const saveChanges = async () => {
         try {
             const response = await axios.put(
                 `/api/articles/${article.id}`,
@@ -81,6 +79,11 @@ export function useEditableArticle(initialArticle: Article) {
 
             // Salimos del modo edición
             setIsEditing(false);
+
+            // Llamamos al callback si está disponible
+            if (onUpdate) {
+                await onUpdate();
+            }
         } catch (error) {
             console.error('Error al guardar artículo:', error);
         }

@@ -17,13 +17,26 @@ class Restaurant extends Model
         // 'email',
     ];
 
+    /**
+     * Get the route key for the model.
+     * Configura Laravel para usar el campo 'name' en lugar del 'id'
+     * para el route model binding.
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function menus()
+    }    public function menus()
     {
         return $this->hasMany(Menu::class);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
     }
 }

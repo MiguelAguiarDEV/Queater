@@ -9,6 +9,8 @@ php artisan config:clear
 echo "Running database migrations..."
 php artisan migrate --force --no-interaction
 
+echo "Building frontend assets..."
+npm run build
 
 # It's a good practice to ensure the .env file exists
 if [ ! -f ".env" ]; then

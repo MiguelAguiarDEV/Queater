@@ -10,14 +10,14 @@ class CreateArticlesTable extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('articles', function (Blueprint $table) {
+    {        Schema::create('articles', function (Blueprint $table) {
             $table->id();
 
             // Campos para el artículo
             $table->string('title');
             $table->text('body')->nullable();
             $table->foreignId('category_id')->constrained()->restrictOnDelete();
+            $table->foreignId('restaurant_id')->constrained()->restrictOnDelete();
             $table->string('image_path')->nullable();
             $table->boolean('is_published')->default(false);
             $table->decimal('price', 8, 2);

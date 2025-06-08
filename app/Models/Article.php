@@ -7,21 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
+    use HasFactory;    protected $fillable = [
         'title',
         'body',
         'category_id',
+        'restaurant_id',
         'image_path',
         'is_published',
         'price',
-    ];
-
-    // Un artículo pertenece a una categoría
+    ];    // Un artículo pertenece a una categoría
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    // Un artículo pertenece a un restaurante
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
     }
 
     // Un artículo puede estar en muchos menús

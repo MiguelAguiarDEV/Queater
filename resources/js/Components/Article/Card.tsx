@@ -10,8 +10,12 @@ import Edit from '../Icons/Edit';
 import Save from '../Icons/Save';
 import SquareX from '../Icons/SquareX';
 
-export default function ArticleCard({ article }: { article: Article }) {
-    const {
+interface ArticleCardProps {
+    article: Article;
+    onUpdate?: () => void | Promise<void>;
+}
+
+export default function ArticleCard({ article, onUpdate }: ArticleCardProps) {    const {
         title,
         setTitle,
         price,
@@ -22,7 +26,7 @@ export default function ArticleCard({ article }: { article: Article }) {
         startEditing,
         cancelEditing,
         saveChanges,
-    } = useEditableArticle(article);
+    } = useEditableArticle(article, onUpdate);
 
     return (
         <li

@@ -73,11 +73,10 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         // Verificar que el usuario sea el propietario del restaurante
-        abort_if(!$user || $user->id !== $restaurant->user_id, 403);
-
-        return Inertia::render('Dashboard/Articles', [
+        abort_if(!$user || $user->id !== $restaurant->user_id, 403);        return Inertia::render('Dashboard/Articles', [
             'restaurant' => $restaurant,
             'articles' => Article::where('restaurant_id', $restaurant->id)->get(),
+            'categories' => Category::all(),
         ]);
     }
 

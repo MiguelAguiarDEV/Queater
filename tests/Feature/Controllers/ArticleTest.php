@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Restaurant;
 
 class ArticleTest extends TestCase
 {
@@ -23,16 +24,16 @@ class ArticleTest extends TestCase
         $article = Article::factory()->create();
         $response = $this->getJson("/api/articles/{$article->id}");
         $response->assertStatus(200)->assertJsonFragment(['id' => $article->id]);
-    }
-
-    public function test_can_create_article()
+    }    public function test_can_create_article()
     {
         $category = Category::factory()->create();
+        $restaurant = Restaurant::factory()->create();
         $data = [
             'title' => 'Nuevo Artículo',
             'body' => 'Contenido',
             'price' => 10.5,
             'category_id' => $category->id,
+            'restaurant_id' => $restaurant->id,
             'is_published' => true
         ];
         $response = $this->postJson('/api/articles', $data);

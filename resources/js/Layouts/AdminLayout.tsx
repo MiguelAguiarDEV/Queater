@@ -22,13 +22,11 @@ export default function AdminLayout({ header, children }: Props) {
             <aside className="hidden w-60 flex-col overflow-y-auto bg-gray-100 shadow-md md:flex">
                 <div className="flex h-16 items-center justify-center">
                     seré un logo
-                </div>
-
-                <nav className="flex flex-col space-y-4 px-4 py-4">
+                </div>                <nav className="flex flex-col space-y-4 px-4 py-4">
                     {restaurant?.id && (
                         <NavLink
-                            href={route('admin.dashboard', restaurant.id)}
-                            active={route().current('admin.dashboard')}
+                            href={route('dashboard.restaurant', restaurant.name)}
+                            active={route().current('dashboard.restaurant')}
                         >
                             Inicio
                         </NavLink>
@@ -36,8 +34,8 @@ export default function AdminLayout({ header, children }: Props) {
 
                     {restaurant?.id && (
                         <NavLink
-                            href={route('admin.articulos.index', restaurant.id)}
-                            active={route().current('admin.articulos.*')}
+                            href={route('dashboard.articles', restaurant.name)}
+                            active={route().current('dashboard.articles')}
                         >
                             Artículos
                         </NavLink>
@@ -45,11 +43,8 @@ export default function AdminLayout({ header, children }: Props) {
 
                     {restaurant?.id && (
                         <NavLink
-                            href={route(
-                                'admin.categorias.index',
-                                restaurant.id
-                            )}
-                            active={route().current('admin.categorias.*')}
+                            href={route('dashboard.categories', restaurant.name)}
+                            active={route().current('dashboard.categories')}
                         >
                             Categorías
                         </NavLink>
@@ -57,8 +52,8 @@ export default function AdminLayout({ header, children }: Props) {
 
                     {restaurant?.id && (
                         <NavLink
-                            href={route('admin.menus.index', restaurant.id)}
-                            active={route().current('admin.menus.*')}
+                            href={route('dashboard.menus', restaurant.name)}
+                            active={route().current('dashboard.menus')}
                         >
                             Menús
                         </NavLink>

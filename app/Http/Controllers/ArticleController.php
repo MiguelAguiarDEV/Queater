@@ -6,10 +6,16 @@ use App\Http\Requests\UpdateArticleRequest;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
-{
-    public function index()
+{    public function index(Request $request)
     {
-        return response()->json(Article::all());
+        $query = Article::query();
+        
+        // Filtrar por restaurant_id si se proporciona
+        if ($request->has('restaurant_id')) {
+            $query->where('restaurant_id', $request->restaurant_id);
+        }
+        
+        return response()->json($query->get());
     }
 
     public function show(Article $article)

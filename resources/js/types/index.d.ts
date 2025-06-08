@@ -19,12 +19,21 @@ export interface Article {
     body: string;
     price: number;
     image_path?: string;
+    restaurant_id?: number;
 }
 
 export interface Category {
     id: number;
     name: string;
     description?: string;
+}
+
+export interface Restaurant {
+    id: number;
+    name: string;
+    description?: string;
+    address?: string;
+    phone?: string;
 }
 
 export interface IconProps {
